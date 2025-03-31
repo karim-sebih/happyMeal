@@ -1,0 +1,6 @@
+{
+    display: flex;
+    flex-wrap: wrap; /* Pour passer à la ligne si l'écran est trop petit */
+    gap: 20px; /* Espacement entre les cartes */
+    justify-content: center; /* Centrage des éléments */
+}

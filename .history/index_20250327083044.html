@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style/index.css">
+    <link rel="shortcut icon" href="./assets/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <title>Happy Meal</title>
+</head>
+
+<body>
+    <aside class="sidebar">
+        <header class="sidebar-header">
+            <a href="#" class="header-logo">
+                <img src="./assets/HappyMeal_logo-removebg-preview.png" alt="logo bg transparent">
+            </a>
+            <a href="">
+                <h1>Happy Meal</h1>
+            </a>
+            <button class="toggler sidebar-toggler">
+                <span class="material-symbols-rounded">
+                    chevron_left
+                </span>
+            </button>
+            <button class="toggler menu-toggler">
+                <span class="material-symbols-rounded">
+                    menu
+                </span>
+            </button>
+        </header>
+        <nav class="sidebar-nav">
+
+            <ul class="nav-list primary-nav">
+                <li class="nav-item">
+                    <a href="" class="nav-link">
+                        <span class="nav-icon material-symbols-rounded">dashboard</span>
+                        <span class="nav-label">Dashboard</span>
+                    </a>
+                    <span class="nav-tooltip">Dashboard</span>
+                </li>
+                <li class="nav-item">
+                    <a href="" class="nav-link">
+                        <span class="nav-icon material-symbols-rounded">explore</span>
+                        <span class="nav-label">Explorer</span>
+                    </a>
+                    <span class="nav-tooltip">Explorer</span>
+                </li>
+                <li class="nav-item">
+                    <a href="" class="nav-link">
+                        <span class="nav-icon material-symbols-rounded">favorite</span>
+                        <span class="nav-label">Favoris</span>
+                    </a>
+                    <span class="nav-tooltip">Favoris</span>
+                </li>
+                <li class="nav-item">
+                    <a href="" class="nav-link">
+                        <span class="nav-icon material-symbols-rounded">shopping_cart</span>
+                        <span class="nav-label">Liste des courses</span>
+                    </a>
+                    <span class="nav-tooltip">Liste des courses</span>
+                </li>
+                <li class="nav-item">
+                    <a href="" class="nav-link">
+                        <span class="nav-icon material-symbols-rounded">calendar_month</span>
+                        <span class="nav-label">Menu de la semaine</span>
+                    </a>
+                    <span class="nav-tooltip">Menu de la semaine</span>
+                </li>
+                </a>
+
+            </ul>
+
+            <ul class="nav-list secondary-nav">
+                <li class="nav-item">
+                    <a href="" class="nav-link">
+                        <span class="nav-icon material-symbols-rounded">account_circle</span>
+                        <span class="nav-label">Login</span>
+                    </a>
+                    <span class="nav-tooltip">Login</span>
+                </li>
+                <li class="nav-item">
+                    <a href="" class="nav-link">
+                        <span class="nav-icon material-symbols-rounded">logout</span>
+                        <span class="nav-label">Logout</span>
+                    </a>
+                    <span class="nav-tooltip">Logout</span>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Section d'affichage des recettes -->
+    <div class="content">
+        <h2>Plats Principaux</h2>
+        <div class="recettes-container Principal"></div>
+        <h2>Entrées</h2>
+        <div class="recettes-container entree"></div>
+        <h2>Desserts</h2>
+        <div class="recettes-container dessert"></div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Fenêtre Pop-up pour afficher les détails d'une recette -->
+    <div id="recipeModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2 id="modal-title"></h2>
+            <img id="modal-image" src="" alt="" style="width: 0%; max-width: 300px;">
+            <p><strong>Temps :</strong> <span id="modal-time"></span></p>
+            <h3>Ingrédients :</h3>
+            <ul id="modal-ingredients"></ul>
+            <h3>Étapes :</h3>
+            <ol id="modal-steps"></ol>
+        </div>
+    </div>
+
+    <script src="./js/sidebar.js"></script>
+    <script src="./js/index.js"></script>
+
+</body>
+
+</html>
