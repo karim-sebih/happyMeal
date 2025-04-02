@@ -1,11 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <link rel="shortcut icon" href="./assets/logo.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Agdasima:wght@400;700&family=Dancing+Script:wght@400..700&family=Krona+One&family=Montserrat+Alternates:wght@100..900&display=swap"
+        rel="stylesheet"> 
+  <title>Recipe Liker</title>
 </head>
 <body>
-    
+  <h1>Recettes</h1>
+  <!-- Filter container for category buttons -->
+  <div id="filter-container" style="margin-bottom: 20px;"></div>
+  <button id="go-back-button" style="display: none;" onclick="goBack()">Revenir</button>
+
+  <!-- Recipe container for dynamically rendered recipes -->
+  <div id="recipe-container"></div>
+
+  <!-- Liked recipes container (updated to div for card format) -->
+  <h2>Favoris:</h2>
+  <!-- <div id="liked-recipes"></div> -->
+  <div id="liked-recipes" style="display: none;"></div>
+
+  
+<!-- Shopping List Section -->
+<section id="shopping-list-section" style="display: none;">
+  <h2>List de courses</h2>
+  <ul id="shopping-list"></ul>
+</section>
+
+
+  <!-- Include the script file -->
+  <script src="script.js"></script>
 </body>
 </html>
