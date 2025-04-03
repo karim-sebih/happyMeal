@@ -1,0 +1,127 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+    text-decoration: none;
+    font-family: "Montserrat Alternates", sans-serif;
+}
+
+
+body{
+    background-color: #DFECDF;
+    display: flex;
+}
+
+.container{
+    background-color: red;
+}
+
+
+
+.two{
+    background-color: blue;
+}
+
+h1{
+    color: #3D4A3D;
+    
+}
+.sidebar{
+    width: 270px;
+    margin: 16px;
+    
+    border-radius: 16px;
+    height: calc(100vh - 32px);
+    background-color: #fff;
+    
+}
+
+.sidebar.collapsed{
+    width: 85px;
+
+}
+
+.sidebar-header{
+    display: flex;
+    align-items: center;
+    padding: 25px 20px;
+    justify-content:space-between;
+}
+
+.sidebar-header  .header-logo img {
+    width: 46px;
+    height: 46px;
+    display: block;
+    object-fit: contain;
+    border-radius: 50%;
+}
+
+.sidebar-header .toggler{
+height: 25px;
+width:25px;
+border: none;
+color: #ffffff;
+display: flex;
+align-items: center;
+justify-content: center;
+cursor: pointer;
+border-radius: 8px;
+background-color: #3D4A3D;
+transition: 0.4s ease;
+}
+
+.sidebar-header .toggler:hover{
+    background-color: #103110;
+}
+
+
+.sidebar-header .toggler span{
+    font-size: 1.75rem;
+
+}
+
+
+.sidebar-nav .nav-premiere {
+    list-style: none;
+    display: flex;
+    gap: 4px;
+    flex-direction: column;
+    padding: 0 15px;
+    transform: translateY(15px);
+}
+
+.sidebar-nav .nav-deuxieme {
+    list-style: none;
+    display: flex;
+    gap: 4px;
+    flex-direction: column;
+    padding: 0 15px;
+
+}
+
+.sidebar-nav .nav-link{
+    color: #3D4A3D;
+    display: flex;
+    gap: 12px;
+    border-radius: 8px;
+    align-items: center;
+    padding: 12px 15px;
+    text-decoration: none;
+    transition: 0.4s ease;
+}
+
+.sidebar-nav .nav-link:hover{
+color: #fff;
+background-color: #3D4A3D;
+}
+
+.sidebar.collapsed .sidebar-nav .nav-link .nav
+
+
+.sidebar-nav .nav-deuxieme{
+position: absolute;
+bottom: 30px;
+width: 100%;
+}

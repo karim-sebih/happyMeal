@@ -1,0 +1,421 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    font-family: "Montserrat Alternates", sans-serif;
+}
+
+
+body {
+    display: flex;
+    
+    width: 100%;
+    overflow-x: hidden;
+    background-color: #DFECDF;
+}
+
+
+
+
+h1 {
+    padding: 10px;
+    color: #3D4A3D;
+    margin-left: 10px;
+}
+
+
+/*Début de la side bar*/
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 270px;
+    margin: 16px;
+    justify-content: space-between;
+    border-radius: 16px;
+    height: calc(100vh - 32px);
+    background-color: #fff;
+    transition: 0.4s;
+
+}
+
+.sidebar.collapsed {
+    width: 80px;
+}
+
+.sidebar-header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 25px 20px;
+    justify-content: space-between;
+}
+
+.sidebar-header .header-logo img {
+    width: 46px;
+    height: 46px;
+    display: block;
+    object-fit: contain;
+    border-radius: 50%;
+}
+
+.sidebar-header .toggler {
+    position: absolute;
+    right: 20px;
+    height: 25px;
+    width: 25px;
+    border: none;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 8px;
+    background-color: #3D4A3D;
+    transition: 0.4s ease;
+}
+
+
+.sidebar-header .sidebar-toggler{
+    position: absolute;
+    right: 20px;
+}
+
+
+.sidebar.collapsed .sidebar-header .sidebar-toggler {
+    transform: translate(-4px, 65px);
+}
+
+
+.sidebar-header .toggler:hover {
+    background-color: #103110;
+}
+
+.sidebar-header .menu-toggler{
+    display: none;
+} 
+
+.sidebar-header .sidebar-toggler span {
+    font-size: 1.75rem;
+    transition: 0.4s ease;
+
+}
+
+.sidebar.collapsed .sidebar-header .sidebar-toggler span {
+    transform: rotate(180deg);
+    transition: 0.4s ease;
+}
+
+.sidebar-nav .nav-list {
+    list-style: none;
+    display: flex;
+    gap: 4px;
+    flex-direction: column;
+    padding: 0 15px;
+    transform: translateY(15px);
+    transition: 0.4s ease;
+}
+
+
+.sidebar.collapsed .sidebar-nav .primary-nav {
+    transform: translateY(65px);
+}
+
+.sidebar-nav .nav-link {
+    color: #3D4A3D;
+    display: flex;
+    gap: 12px;
+    white-space: nowrap;
+    border-radius: 8px;
+    align-items: center;
+    padding: 12px 15px;
+    text-decoration: none;
+    transition: 0.4s ease;
+}
+
+
+.sidebar-nav .nav-link:hover {
+    color: #fff;
+    background-color: #3D4A3D;
+}
+
+.sidebar-nav .nav-link .nav-label {
+    transition: opacity 0.4s ease;
+}
+
+
+
+.sidebar.collapsed .sidebar-nav .nav-link .nav-label {
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.4s ease;
+}
+
+.sidebar.collapsed h1 {
+    display: none;
+}
+
+.sidebar.collapsed .sidebar-nav .nav-label {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.sidebar .sidebar-nav .nav-label {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+
+.sidebar-nav .nav-item{
+    position: relative;
+}
+
+.sidebar-nav .nav-tooltip{
+    background-color: #fff;
+    color: #3D4A3D;
+    padding: 6px 12px;
+    opacity: 1;
+    pointer-events: none;
+    position: absolute;
+    top: -10px ;
+    left: calc(100% + 25px);
+    white-space: nowrap;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    transition: 0s ;
+}
+
+.sidebar.collapsed .sidebar-nav .nav-item:hover .nav-tooltip{
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(50%);
+    transition: 0.4s ease;
+}
+
+.sidebar-nav .secondary-nav {
+    position: absolute;
+    bottom: 40px;
+    width: 100%;
+}
+ 
+.sidebar.collapsed  .sidebar-nav .secondary-nav {
+    position: absolute;
+    bottom: 20px;
+    width:100%;
+    
+}
+
+
+
+@media (max-width: 1020px){
+    .sidebar{
+        height: 56px;
+        margin: 13px;
+        overflow-y: hidden;
+        scrollbar-width: none;
+        max-height: calc(100vh - 28px );
+        width: calc(100% - 28px);
+    }
+    
+    .sidebar-header{
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        background: #fff;
+        padding: 8px 10px;
+        border-radius: 16Px;
+        
+    }
+  .sidebar-header .header-logo img {
+    width: 40px;
+    height: 40px; 
+  }
+
+  .sidebar-header .sidebar-toggler{
+    display: none;
+} 
+
+.sidebar-header .menu-toggler{
+    display: flex;
+    height: 30px;
+    width: 30px;
+} 
+
+.sidebar-header .menu-toggler span{
+    font-size: 1.3rem;
+}
+
+ .sidebar-nav .nav-list{
+    padding: 0 10px ;
+ }
+
+  .sidebar-nav .nav-link {
+    gap: 10px;
+    padding: 10px;
+    font-size: 0.94rem;
+
+  }
+
+  .sidebar-nav .nav-link .nav-icon {
+    font-size: 1.37rem;
+
+  }
+
+  .sidebar-nav .secondary-nav   {
+    position: relative;
+    bottom: 0;
+    margin: 40px 0 30px;
+    width: 100%;
+  }
+  .sidebar h1 {
+    margin-right: 50px;
+  }
+}
+
+/*fin de la side bar*/
+/*Début Content*/
+.content{
+    margin-top: 50Px;
+}
+
+.content {
+    margin-left: 290px; 
+    padding: 20px;
+    width: calc(100% - 290px); 
+    transition: margin-left 0.4s ease, width 0.4s ease; 
+    justify-content: space-between;
+    max-height: 300px;
+}
+
+.sidebar.collapsed ~ .content {
+    margin-left: 100px; 
+    width: calc(100% - 80px); 
+}
+
+@media (max-width: 1020px){
+    .content{
+        margin-left: 0;
+        width: auto;
+        margin-top: 70px;
+    }
+}
+
+
+.Principal{
+    width: 87%;
+  height: 90%;
+  margin: 0 auto;
+  background-color: #FAFAFA;
+  padding: 0 20px 20px 20px;
+
+}
+
+.Principal {
+    display: flex;
+    flex-wrap: wrap; /* Pour passer à la ligne si l'écran est trop petit */
+    gap: 20px; /* Espacement entre les cartes */
+    justify-content: center; /* Centrage des éléments */
+}
+
+
+.entree {
+    display: flex;
+    flex-wrap: wrap; /* Pour passer à la ligne si l'écran est trop petit */
+    gap: 20px; /* Espacement entre les cartes */
+    justify-content: center; /* Centrage des éléments */
+}
+
+.entree{
+    width: 87%;
+    height: 90%;
+    margin: 0 auto;
+    background-color: #FAFAFA;
+    padding: 0 20px 20px 20px;
+}
+
+.dessert{
+    display: flex;
+    flex-wrap: wrap; /* Pour passer à la ligne si l'écran est trop petit */
+    gap: 20px; /* Espacement entre les cartes */
+    justify-content: center; /* Centrage des éléments */
+}
+
+.dessert{
+    width: 87%;
+  height: 90%;
+  margin: 0 auto;
+  background-color: #FAFAFA;
+  padding: 0 20px 20px 20px;
+  margin-top: 20px;
+
+
+}
+
+/* Style des cartes recettes */
+.recipe-card {
+    background: white;
+    border-radius: 8px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    transition: 0.3s;
+    width: 22%;
+    height: 200px;
+    margin-top: 20px;
+}
+
+.recipe-card img {
+    width: 100px; /* Largeur fixe */
+    height: 100px; /* Hauteur fixe */
+    object-fit: cover; /* Recadre l’image sans la déformer */
+    border-radius: 8px; /* Coins arrondis (optionnel) */
+}
+
+.recipe-card:hover {
+    transform: scale(1.05);
+}
+
+button {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+/* Style de la Pop-up */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    width: 60%;
+    border-radius: 5px;
+    text-align: left;
+    position: relative;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
