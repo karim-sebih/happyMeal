@@ -1,0 +1,40 @@
+// JS => calendar (FullCalendar)
+import { Calendar } from '@fullcalendar/core';
+import interactionPlugin from '@fullcalendar/interaction';
+
+document.addEventListener('DOMContentLoaded', function() {
+    let calendarEl = document.getElementById('calendar'); // calendarEl = Element (container) du calendar
+    let calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridWeek',
+        events: [] // Méthode pour chercher dans JSON si events exists,
+        initialDate: 'today',
+        editable: true,
+        eventOverlap: true,
+        plugins: [ interactionPlugin ],
+        dateClick: function(info) {
+            // Ajouter un repas à la date cliquée
+            let title = prompt('Entrez le nom du repas:');
+            let time = prompt('Entrez l\'heure du repas (HH:MM):');
+            if (title) {
+                let dateTime = info.dateStr + 'T' + time + ':00';
+                calendar.addEvent({
+                    title: title,
+                    start: dateTime
+                });
+            }
+        }
+    });
+
+    calendar.render();
+});
+
+
+// recuperer infos du JSON
+let json = new XMLHttpRequest(); 
+json.open('GET', '../assets/data.json');
+json.onreadystatechange = function() {
+  if (json.readyState === 4) {
+    var recettes = JSON.parse(json.responseText);
+  }
+};
+
