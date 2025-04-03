@@ -37,7 +37,7 @@ function createCategoryFilters(recipes) {
   });
   // "Show All" button
   const showAllButton = document.createElement('button');
-  showAllButton.textContent = 'Show All';
+  showAllButton.textContent = 'Recettes';
   showAllButton.onclick = () => renderRecipes(recipes, false); // Show all recipes when clicked
   filterContainer.appendChild(showAllButton);
   // "Favoris" button
@@ -78,8 +78,9 @@ function renderRecipes(recipes, excludeLiked = false) {
     const recipeDiv = document.createElement('div');
     recipeDiv.className = 'recipe';
     recipeDiv.innerHTML = `
+      
+      <img src="${recipe.image.src}" alt="${recipe.image.alt}" class="recipe-image">
       <h3>${recipe.nom}</h3>
-      <img src="${recipe.image?.src || ''}" alt="${recipe.image?.alt || 'No image'}" class="recipe-image" style="width: 150px; height: auto;">
       <p><strong>Catégorie:</strong> ${recipe.categorie}</p>
       <p><strong>Temps de préparation:</strong> ${recipe.temps_preparation}</p>
       <label class="container">
@@ -124,13 +125,14 @@ function updateLikedRecipes() {
         <h3>${recipe.nom}</h3>
         <p><strong>Catégorie:</strong> ${recipe.categorie}</p>
         <p><strong>Temps de préparation:</strong> ${recipe.temps_preparation}</p>
-        <button class="remove-btn" onclick="removeLikedRecipe('${recipe.nom}')">🗑️ Supprimer</button>
+        <button class="remove-btn" onclick="removeLikedRecipe('${recipe.nom}')">🗑️</button>
       </div>
     `;
     card.querySelector('.recipe-image').addEventListener('click', () => showPopup(recipe));
     likedRecipesList.appendChild(card);
   });
 }
+
 // REMOVE LIKED RECIPE
 function removeLikedRecipe(recipeName) {
   likedRecipes = likedRecipes.filter(recipe => recipe.nom !== recipeName);
@@ -280,25 +282,26 @@ function showPopup(recipe) {
 
 // Function to toggle like/unlike in the pop-up for a specific recipe.
 function toggleLikeInPopup(recipeName, isChecked) {
-    const recipe = fetchedRecipes.find(r => r.nom === recipeName); // Find the recipe by its name.
-    if (isChecked) {
-      // If the recipe is liked and not already in the list, add it.
+  const recipe = fetchedRecipes.find(r => r.nom === recipeName); // Find the recipe by its name.
+  if (isChecked) {
       if (!likedRecipes.some(liked => liked.nom === recipe.nom)) {
-        likedRecipes.push(recipe);
+          likedRecipes.push(recipe);
       }
-    } else {
-      // If the recipe is unliked, remove it.
+  } else {
       likedRecipes = likedRecipes.filter(liked => liked.nom !== recipe.nom);
-    }
-    updateLikedRecipes(); // Refresh the "Liked Recipes" section.
   }
-
+  localStorage.setItem('likedRecipes', JSON.stringify(likedRecipes)); // Save to localStorage
+  updateLikedRecipes(); // Refresh the "Liked Recipes" section.
+}
 
 function closePopup() {
   const popup = document.getElementById('recipe-popup');
   const overlay = document.getElementById('popup-overlay');
   if (popup) popup.remove();
   if (overlay) overlay.remove();
+
+  // Re-render recipes to reflect the updated liked state
+  renderRecipes(fetchedRecipes);
 }
 // ADDING INGREDIENTS TO SHOPPING LIST
 function addIngredientsToShoppingList(recipeName) {
