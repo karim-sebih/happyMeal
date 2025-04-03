@@ -5,7 +5,7 @@ let shoppingList = []; // Saves ingredients for the shopping list
 let activeRecipe = null; // Currently viewed recipe
 // DATA FETCHING AND INITIALIZATION
 // Fetch data (recipes) from the external file 'data.json'
-fetch('data.json')
+fetch('../json/data.json')
   .then(response => {
     if (!response.ok) {
       throw new Error('Network response was not ok');
@@ -262,7 +262,7 @@ function showPopup(recipe) {
       <ol>
         ${recipe.etapes.map(etape => `<li>${etape}</li>`).join('')}
       </ol>
-      <button style="margin-bottom: 10px;" onclick="addIngredientsToShoppingList('${recipe.nom}')">Ajouter à la liste de courses</button>
+      
       <label class="container" style="margin-bottom: 10px;">
         <input type="checkbox" onchange="toggleLikeInPopup('${recipe.nom}', this.checked)" ${
           likedRecipes.some(liked => liked.nom === recipe.nom) ? 'checked' : ''
@@ -303,14 +303,48 @@ function closePopup() {
   // Re-render recipes to reflect the updated liked state
   renderRecipes(fetchedRecipes);
 }
-// ADDING INGREDIENTS TO SHOPPING LIST
-function addIngredientsToShoppingList(recipeName) {
-  const recipe = fetchedRecipes.find(r => r.nom === recipeName);
-  recipe.ingredients.forEach(ingredient => {
-    if (!shoppingList.includes(ingredient.nom)) {
-      shoppingList.push(ingredient.nom);
-    }
-  });
-  localStorage.setItem('shoppingList', JSON.stringify(shoppingList)); // Update localStorage
-  alert('Ingredients added to your shopping list!');
+
+
+
+// Function to toggle checkbox state and manage notifications for removal.
+function toggleCheckboxState(checkbox) {
+  const ingredientName = checkbox.dataset.name;
+
+  // Show a toast only when an ingredient is unselected.
+  if (!checkbox.checked) {
+    showToast(`"${ingredientName}" retiré de la liste de courses!`); // Toast for removal.
+  }
+
+  console.log(`Checkbox for "${ingredientName}" toggled.`); // Debugging log.
 }
+
+// ADDING INGREDIENTS TO SHOPPING LIST
+function addToShoppingList(checkbox) {
+  const ingredientName = checkbox.dataset.name; // Get the ingredient name from the checkbox data
+  if (checkbox.checked) {
+      if (!shoppingList.includes(ingredientName)) {
+          shoppingList.push(ingredientName);
+          showToast(`"${ingredientName}" ajouté à la liste de courses!`); // Toast for the selected ingredient
+      }
+  } else {
+      shoppingList = shoppingList.filter(item => item !== ingredientName); // Remove ingredient if unchecked
+      showToast(`"${ingredientName}" retiré de la liste de courses!`); // Optional toast for removal
+  }
+  localStorage.setItem('shoppingList', JSON.stringify(shoppingList)); // Update localStorage
+}
+
+
+
+
+// Function for displaying toast notifications.
+function showToast(message) {
+  const toast = document.getElementById('toast');
+  toast.textContent = message; // Update the toast message dynamically.
+  toast.classList.add('show'); // Show the toast.
+  setTimeout(() => {
+    toast.classList.remove('show'); // Hide the toast after 3 seconds.
+  }, 3000); // Toast duration in milliseconds.
+}
+
+
+

@@ -634,3 +634,25 @@ button.remove-btn:hover {
     /* Returns the checkmark to its normal size. */
   }
 }
+
+
+.toast {
+  visibility: hidden; /* Hidden by default */
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #4CAF50; /* Green background for success */
+  color: white;
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  font-size: 16px;
+  z-index: 10000;
+  opacity: 0; /* Start fully transparent */
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+.toast.show {
+  visibility: visible; /* Make visible */
+  opacity: 1; /* Fade in */
+}
+
