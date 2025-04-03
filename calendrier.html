@@ -22,20 +22,24 @@
         <main>
             <div id="calendrier">
                 <p id="calCont"></p>
-                <!-- <p id="formCont"></p> -->
             </div>
-            <div id="meal-form" style="display:none;">
-                <label for="meal-name">Nom du repas:</label>
-                <input type="text" id="meal-name">
-                <label for="meal-date">Date du repas:</label>
-                <input type="date" id="meal-date">
-                <label for="meal-time">Heure du repas:</label>
-                <input type="time" id="meal-time">
-                <button id="add-meal">Ajouter</button>
-            </div>
+            <section id="meal-popup">
+                    <div id="meal-form">
+                        <label for="meal-name">Nom du repas:</label>
+                        <input type="text" id="meal-name">
+                        <label for="meal-date">Date du repas:</label>
+                        <input type="date" id="meal-date">
+                        <label for="meal-time">Heure du repas:</label>
+                        <input type="time" id="meal-time">
+                        <div>
+                            <button id="add-meal">Ajouter</button>
+                            <button onclick="cacherPopup()">Annuler</button>
+                        </div>
+                    </div>
+            </section>
         </main>
         <footer>&copy; </footer>
-        <script src="js/script.js"></script>
+        <script src="js/calendar.js"></script>
         <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js'></script>
         <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/locales/fr.js'></script>
     </body>

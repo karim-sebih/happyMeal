@@ -1,20 +1,42 @@
+<<<<<<< HEAD
+document.addEventListener('DOMContentLoaded', async function() {
+    let savedEvents = JSON.parse(localStorage.getItem('calendarEvents')) || [];     
+
+    const calendarContainer = document.getElementById('calCont');
+    
+    const mealPopup = document.getElementById('meal-popup');
+=======
 document.addEventListener('DOMContentLoaded', function() {
      
 
     const calendarContainer = document.getElementById('calCont');
     
     const mealForm = document.getElementById('meal-form');
+>>>>>>> 68f7bcd55be8ecf73735ed44cd9a1154c9f221d2
     const addMealButton = document.getElementById('add-meal');
     const mealNameInput = document.getElementById('meal-name');
     const mealDateInput = document.getElementById('meal-date');
 
+<<<<<<< HEAD
+    const res = await fetch('http://localhost/happyMeal/assets/data.json');
+    const data = await res.json();
+    console.log(data);
+
+    let calendrier = new FullCalendar.Calendar(calendarContainer, {
+        initialView: 'dayGridWeek',
+=======
     let calendrier = new FullCalendar.Calendar(calendarContainer, {
         initialView: 'dayGridMonth',
+>>>>>>> 68f7bcd55be8ecf73735ed44cd9a1154c9f221d2
         locale: 'fr',
         selectable: true,
         dateClick: function(info) {
             // Afficher un formulaire de demande d'autorisation lorsqu'une date est cliquée
+<<<<<<< HEAD
+            mealPopup.style.display = 'block';
+=======
             mealForm.style.display = 'block';
+>>>>>>> 68f7bcd55be8ecf73735ed44cd9a1154c9f221d2
             addMealButton.onclick = function() {
                 var title = document.getElementById('meal-name').value;
                 var time = document.getElementById('meal-time').value;
@@ -24,7 +46,12 @@ document.addEventListener('DOMContentLoaded', function() {
                         title: title,
                         start: dateTime
                     });
+<<<<<<< HEAD
+                    mealPopup.style.display = 'none';
+                    maj_savedEvents;
+=======
                     mealForm.style.display = 'none';
+>>>>>>> 68f7bcd55be8ecf73735ed44cd9a1154c9f221d2
                 }
             };
         },
@@ -35,7 +62,11 @@ document.addEventListener('DOMContentLoaded', function() {
              }
         ],
         eventContent: function(arg) {
+<<<<<<< HEAD
+            let recipe = data.find(r => r.name === arg.event.title);
+=======
             let recipe = recipes.find(r => r.name === arg.event.title);
+>>>>>>> 68f7bcd55be8ecf73735ed44cd9a1154c9f221d2
             let imageHtml = recipe ? `<img src="${recipe.imageUrl}" alt="${recipe.name}">` : '';
             let eventHtml = `
                 <div class="fc-event">
@@ -95,8 +126,24 @@ function EnregistrerDemande(date, raison) {
     }
 } */ // C'est pété
 
+<<<<<<< HEAD
+function maj_savedEvents () {
+    savedEvents.push({ title: title, start: dateTime });
+    localStorage.setItem('calendarEvents', JSON.stringify(savedEvents));
+}
+
+function toggleAddMeal () {
+    let popup = document.querySelector('#meal-popup');
+    popup.classList.toggle('display-meal-popup');
+}
+
+function cacherPopup () {
+    const mealPopup = document.getElementById('meal-popup');
+    mealPopup.style.display = 'none';
+=======
 function getJsonData () {
     fetch('../assets/data.json')
     .then(response => response.json())
     .then()
+>>>>>>> 68f7bcd55be8ecf73735ed44cd9a1154c9f221d2
 }
