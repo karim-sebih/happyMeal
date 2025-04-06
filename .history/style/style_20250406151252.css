@@ -1,0 +1,958 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    font-family: "Montserrat Alternates", sans-serif;
+}
+
+
+body {
+    display: flex;
+
+    width: 100%;
+    overflow-x: hidden;
+    background-color: #DFECDF;
+}
+
+
+
+
+h1 {
+    padding: 10px;
+    color: #3D4A3D;
+    margin-left: 10px;
+}
+
+
+/*Début de la side bar*/
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 270px;
+    margin: 16px;
+    justify-content: space-between;
+    border-radius: 16px;
+    height: calc(100vh - 32px);
+    background-color: #fff;
+    transition: 0.4s;
+
+}
+
+.sidebar.collapsed {
+    width: 80px;
+}
+
+.sidebar-header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 25px 20px;
+    justify-content: space-between;
+}
+
+.sidebar-header .header-logo img {
+    width: 46px;
+    height: 46px;
+    display: block;
+    object-fit: contain;
+    border-radius: 50%;
+}
+
+.sidebar-header .toggler {
+    position: absolute;
+    right: 20px;
+    height: 25px;
+    width: 25px;
+    border: none;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 8px;
+    background-color: #3D4A3D;
+    transition: 0.4s ease;
+}
+
+
+.sidebar-header .sidebar-toggler {
+    position: absolute;
+    right: 20px;
+}
+
+
+.sidebar.collapsed .sidebar-header .sidebar-toggler {
+    transform: translate(-4px, 65px);
+}
+
+
+.sidebar-header .toggler:hover {
+    background-color: #103110;
+}
+
+.sidebar-header .menu-toggler {
+    display: none;
+}
+
+.sidebar-header .sidebar-toggler span {
+    font-size: 1.75rem;
+    transition: 0.4s ease;
+
+}
+
+.sidebar.collapsed .sidebar-header .sidebar-toggler span {
+    transform: rotate(180deg);
+    transition: 0.4s ease;
+}
+
+.sidebar-nav .nav-list {
+    list-style: none;
+    display: flex;
+    gap: 4px;
+    flex-direction: column;
+    padding: 0 15px;
+    transform: translateY(15px);
+    transition: 0.4s ease;
+}
+
+
+.sidebar.collapsed .sidebar-nav .primary-nav {
+    transform: translateY(65px);
+}
+
+.sidebar-nav .nav-link {
+    color: #3D4A3D;
+    display: flex;
+    gap: 12px;
+    white-space: nowrap;
+    border-radius: 8px;
+    align-items: center;
+    padding: 12px 15px;
+    text-decoration: none;
+    transition: 0.4s ease;
+}
+
+
+.sidebar-nav .nav-link:hover {
+    color: #fff;
+    background-color: #3D4A3D;
+}
+
+.sidebar-nav .nav-link .nav-label {
+    transition: opacity 0.4s ease;
+}
+
+
+
+.sidebar.collapsed .sidebar-nav .nav-link .nav-label {
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.4s ease;
+}
+
+.sidebar.collapsed h1 {
+    display: none;
+}
+
+.sidebar.collapsed .sidebar-nav .nav-label {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.sidebar .sidebar-nav .nav-label {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+
+.sidebar-nav .nav-item {
+    position: relative;
+}
+
+.sidebar-nav .nav-tooltip {
+    background-color: #fff;
+    color: #3D4A3D;
+    padding: 6px 12px;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    top: -10px;
+    left: calc(100% + 25px);
+    white-space: nowrap;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    transition: 0s;
+}
+
+.sidebar.collapsed .sidebar-nav .nav-item:hover .nav-tooltip {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(50%);
+    transition: 0.4s ease;
+}
+
+.sidebar-nav .secondary-nav {
+    position: absolute;
+    bottom: 40px;
+    width: 100%;
+}
+
+.sidebar.collapsed .sidebar-nav .secondary-nav {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+
+}
+
+
+
+@media (max-width: 1020px) {
+    .sidebar {
+        height: 56px;
+        margin: 13px;
+        overflow-y: hidden;
+        scrollbar-width: none;
+        max-height: calc(100vh - 28px);
+        width: calc(100% - 28px);
+    }
+
+    .sidebar-header {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        background: #fff;
+        padding: 8px 10px;
+        border-radius: 16Px;
+
+    }
+
+    .sidebar-header .header-logo img {
+        width: 40px;
+        height: 40px;
+    }
+
+    .sidebar-header .sidebar-toggler {
+        display: none;
+    }
+
+    .sidebar-header .menu-toggler {
+        display: flex;
+        height: 30px;
+        width: 30px;
+    }
+
+    .sidebar-header .menu-toggler span {
+        font-size: 1.3rem;
+    }
+
+    .sidebar-nav .nav-list {
+        padding: 0 10px;
+    }
+
+    .sidebar-nav .nav-link {
+        gap: 10px;
+        padding: 10px;
+        font-size: 0.94rem;
+
+    }
+
+    .sidebar-nav .nav-link .nav-icon {
+        font-size: 1.37rem;
+
+    }
+
+    .sidebar-nav .secondary-nav {
+        position: relative;
+        bottom: 0;
+        margin: 40px 0 30px;
+        width: 100%;
+    }
+
+    .sidebar h1 {
+        margin-right: 50px;
+    }
+}
+.content {
+  margin-top: 10Px;
+  
+
+}
+
+.content h2 {
+  margin: 10px;
+  color: #3D4A3D;
+}
+
+.content {
+  margin-left: 290px;
+  padding: 10px;
+  width: calc(100% - 290px);
+  transition: margin-left 0.4s ease, width 0.4s ease;
+  justify-content: space-between;
+  max-height: 350px;
+}
+
+.sidebar.collapsed~.content {
+  margin-left: 100px;
+  width: calc(100% - 80px);
+}
+
+@media (max-width: 1020px) {
+  .content {
+      margin-left: 0;
+      width: auto;
+      margin-top: 70px;
+  }
+}
+
+.recipe {
+  border: 1px solid #ccc;
+  /* Adds a gray border around each recipe card to separate them visually. */
+  margin-bottom: 10px;
+  /* Creates a 10-pixel gap below each recipe card for better spacing. */
+  padding: 10px;
+  /* Adds 10-pixel space inside the recipe card for breathing room. */
+}
+
+#filter-container button {
+  margin: 5px;
+  /* Adds 5-pixel spacing around filter buttons to prevent crowding. */
+  padding: 10px 15px;
+  /* Adds 10-pixel padding vertically and 15-pixel padding horizontally to the buttons for a comfortable size. */
+  background-color: #3D4A3D;
+  /* Sets a dark green background for the buttons to make them stand out. */
+  color: white;
+  /* Colors the text on buttons white for visibility. */
+  border: none;
+  /* Removes the default border from buttons for a cleaner look. */
+  border-radius: 3px;
+  /* Rounds the corners of the buttons slightly for a softer design. */
+  cursor: pointer;
+  /* Changes the mouse pointer to a hand icon when hovering over the buttons. */
+}
+
+#filter-container button:hover {
+  background-color: #767e76;
+  /* Changes the button color to lighter green when hovered over to indicate interactivity. */
+}
+
+/* This section styles recipe containers and ensures they look neat and organized. */
+#recipe-container,
+#liked-recipes {
+  display: flex; /* Ensures the items are arranged in a row */
+  flex-wrap: wrap; /* Allows wrapping to the next line if needed */
+  justify-content: space-around; /* Aligns items to the left */
+  gap: 20px; /* Adds some spacing between the items */
+}
+
+/* This block styles each recipe card to make them consistent and visually appealing. */
+.recipe,
+.recipe-card {
+  width: 266px;
+  /* Fixes the width of each recipe card to 266 pixels for uniform size. */
+  height: 333px;
+  /* Fixes the height of each recipe card to 333 pixels for uniform size. */
+  box-sizing: border-box;
+  /* Ensures padding and border are included in the width and height of the card. */
+  margin: 10px;
+  /* Adds a 10-pixel space around each card for separation. */
+  padding: 10px;
+  /* Adds space inside the card for content. */
+  border: 1px solid #ccc;
+  /* Adds a gray border around the card. */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  /* Creates a subtle shadow around the card for a 3D effect. */
+  border-radius: 5px;
+  /* Rounds the corners of the card slightly for a smoother look. */
+  background-color: white;
+  /* Sets the card background to white to keep it clean. */
+}
+
+.recipe,
+.recipe-card {
+  position: relative;
+  /* Allows elements inside the recipe card to be positioned precisely. */
+}
+
+/* Ensures that images inside recipe cards look neat and consistent. */
+.recipe img,
+.recipe-card .recipe-image {
+  width: 245px;
+  /* Sets the width of the image to 245 pixels for uniformity. */
+  height: 186px;
+  /* Sets the height of the image to 186 pixels for consistent sizing. */
+  object-fit: cover;
+  /* Makes sure the image is cropped properly while maintaining its aspect ratio. */
+  border-radius: 5px;
+  /* Rounds the corners of the image slightly for a smoother appearance. */
+}
+
+/* Adds extra margins for better alignment and spacing in recipe cards. */
+.recipe,
+.recipe-card {
+  margin: 10px 0;
+  /* Adds vertical spacing between recipe cards. */
+  padding: 10px;
+  /* Adds space inside the cards for content to breathe. */
+  border: 1px solid #ccc;
+  /* Provides a light gray border around the cards. */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  /* Creates a slight shadow effect for a polished look. */
+  border-radius: 5px;
+  /* Gives the card rounded corners for a softer design. */
+}
+
+.recipe-content {
+  flex: 1;
+  /* Allows the content inside the recipe card to take up available space. */
+}
+
+h1 {
+  color: #3D4A3D;
+  /* Makes the main heading dark green for better visibility and styling. */
+}
+
+h3 {
+  margin: 5px 0;
+  /* Adds spacing above and below smaller headings. */
+  font-size: 1.2em;
+  /* Sets the font size to 1.2 times the base size for emphasis. */
+  color: #3D4A3D;
+  /* Uses a dark green color for styling. */
+}
+
+p {
+  margin: 5px 0;
+  /* Adds a small gap above and below paragraphs for readability. */
+  font-size: 0.8em;
+  /* Sets the paragraph text to a slightly smaller font size. */
+  color: #3D4A3D;
+  /* Matches the color scheme with dark green text. */
+}
+
+button.remove-btn {
+
+  position: absolute;
+  /* Allows precise positioning inside the recipe card. */
+  bottom: 10px;
+  /* Places the button 10 pixels from the bottom of the card. */
+  left: 10px;
+  /* Positions the button 10 pixels from the left side of the card. */
+  margin-left: auto;
+  /* Pushes the delete button to the far right of the list item. */
+  font-size: 1.2em;
+  /* Makes the delete icon slightly larger for visibility. */
+  color: red;
+  /* Colors the delete button red to indicate its purpose. */
+  background: none;
+  /* Removes the background from the button. */
+  border: none;
+  /* Removes the border for a cleaner design. */
+  cursor: pointer;
+  /* Changes the cursor to a hand icon when hovering over the button. */
+  padding: 0 !important;
+  /* Removes extra padding for a compact look. */
+  color: inherit;
+  /* Keeps the button's text color matching the rest of the design. */
+  margin-right: 70px;
+  /* Adds space between the delete button and the text. */
+}
+
+button.remove-btn:hover {
+  transform: scale(1.5);
+  /* Makes the delete button bigger when hovered over for emphasis. */
+}
+
+#go-back-button {
+  display: flex;
+  /* Allows flexible positioning for better alignment. */
+  justify-content: end;
+  /* Aligns the button to the right side. */
+  align-items: end;
+  /* Aligns the button vertically to the bottom of its container. */
+}
+
+#go-back-button {
+  padding: 10px 15px;
+  /* Adds spacing inside the button for comfortable clicking. */
+  background-color: #3D4A3D;
+  /* Sets a dark green background for the button. */
+  color: white;
+  /* Colors the button text white for visibility. */
+  border: none;
+  /* Removes any default borders around the button for a smooth design. */
+  border-radius: 3px;
+  /* Slightly rounds the button corners for style. */
+  cursor: pointer;
+  /* Displays a hand icon when hovering over the button. */
+}
+
+#go-back-button:hover {
+  background-color: #767e76;
+  /* Makes the button lighter green when hovered for a visual cue. */
+}
+
+/* Pop-up section to display recipes in a separate container. */
+#recipe-popup {
+  max-width: 400px;
+  /* Ensures the pop-up won't be wider than 400 pixels. */
+  width: 90%;
+  /* Makes the width of the pop-up take up 90% of the screen on smaller devices. */
+  animation: fadeIn 0.3s ease;
+  /* Adds a smooth fade-in animation to the pop-up. */
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    /* Starts the animation with the pop-up being completely transparent. */
+    transform: translate(-50%, -50%) scale(0.8);
+    /* Positions and makes the pop-up slightly smaller at the start of the animation. */
+  }
+  to {
+    opacity: 1;
+    /* Ends the animation with the pop-up fully visible. */
+    transform: translate(-50%, -50%) scale(1);
+    /* Positions and restores the pop-up to its normal size. */
+  }
+}
+
+/* Overlay for dimming the background when the pop-up is active. */
+#popup-overlay {
+  position: fixed;
+  /* Ensures the overlay stays in a fixed position over the entire page. */
+  top: 0;
+  /* Positions the overlay at the very top of the page. */
+  left: 0;
+  /* Positions the overlay on the very left side of the page. */
+  width: 100vw;
+  /* Makes the overlay cover the entire viewport horizontally. */
+  height: 100vh;
+  /* Makes the overlay cover the entire viewport vertically. */
+  background-color: rgba(0, 0, 0, 0.8);
+  /* Adds a dark, semi-transparent overlay for focus effect. */
+  z-index: 999;
+  /* Ensures the overlay appears on top of most other elements. */
+}
+
+#recipe-popup .container {
+  position: absolute;
+  /* Allows precise positioning within the pop-up. */
+  bottom: 10px;
+  /* Positions the container 10 pixels from the bottom of the pop-up. */
+  left: 10px;
+  /* Positions the container 10 pixels from the left side of the pop-up. */
+}
+
+/* Styles the pop-up container itself to hold the recipe details. */
+#recipe-popup {
+  display: flex;
+  /* Uses flexbox for a two-column layout in the pop-up. */
+  flex-wrap: wrap;
+  /* Ensures the layout adjusts for smaller screens. */
+  max-width: 1000px;
+  /* Limits the width to 1000 pixels for larger screens. */
+  width: 80%;
+  /* Sets the pop-up's width to 80% of the screen for a responsive design. */
+  background-color: #fff;
+  /* Sets a white background for the pop-up. */
+  border-radius: 5px;
+  /* Gives the corners a soft roundness. */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+  /* Adds a dark shadow around the pop-up for a 3D effect. */
+  position: fixed;
+  /* Keeps the pop-up fixed in place even when scrolling. */
+  top: 50%;
+  /* Centers the pop-up vertically on the screen. */
+  left: 50%;
+  /* Centers the pop-up horizontally on the screen. */
+  transform: translate(-50%, -50%);
+  /* Ensures perfect centering using a translation. */
+  z-index: 1000;
+  /* Places the pop-up above most elements on the page. */
+  animation: fadeIn 0.3s ease-in-out;
+  /* Adds the fade-in animation with smooth timing. */
+  overflow: hidden;
+  /* Prevents content from spilling out of the pop-up. */
+}
+
+/* Left column of the pop-up to display the recipe image. */
+#recipe-popup .left-column {
+  flex: 1;
+  /* Makes the left column take up half the width of the pop-up. */
+  padding: 20px;
+  /* Adds spacing inside the left column. */
+  border-right: 2px solid #ddd;
+  /* Adds a divider between the left and right columns. */
+  text-align: center;
+  /* Centers the content horizontally in the column. */
+  color: #3D4A3D;
+  /* Uses the dark green color for text in the left column. */
+}
+
+#recipe-popup .left-column img {
+  width: 100%;
+  /* Ensures the image takes up the full width of its container. */
+  height: auto;
+  /* Maintains the image's aspect ratio. */
+  border-radius: 5px;
+  /* Gives the image smooth rounded corners. */
+}
+
+/* Right column of the pop-up to display recipe details. */
+#recipe-popup .right-column {
+  flex: 1;
+  /* Makes the right column take up half the width of the pop-up. */
+  padding: 20px;
+  /* Adds spacing inside the right column. */
+  font-family: 'Montserrat Alternates', sans-serif;
+  /* Sets a clean and consistent font for the details. */
+  background-color: #DFECDF;
+  /* Adds a soft green background color for the details section. */
+}
+
+#recipe-popup .right-column h4 {
+  color: #3D4A3D;
+  /* Makes the section headings dark green for emphasis. */
+  margin-bottom: 10px;
+  /* Adds spacing below the headings for readability. */
+}
+
+#recipe-popup .right-column ul,
+#recipe-popup .right-column ol {
+  padding-left: 20px;
+  /* Indents lists for proper alignment. */
+  margin-bottom: 15px;
+  /* Adds spacing below lists. */
+  color: #3D4A3D;
+  /* Ensures the text in lists matches the dark green color scheme. */
+}
+
+#recipe-popup .right-column ul li,
+#recipe-popup .right-column ol li {
+  margin-bottom: 8px;
+  /* Adds spacing between list items for better readability. */
+  line-height: 1.5;
+  /* Increases the spacing between lines of text for clarity. */
+  font-size: 0.7em;
+  /* Uses a smaller font size for list items. */
+}
+
+/* Styling for the close and "add to shopping list" button in the pop-up. */
+#recipe-popup button {
+  display: block;
+  /* Makes the button a block element to ensure it spans the desired width. */
+  margin: 10px auto;
+  /* Centers the button horizontally and adds vertical spacing. */
+  padding: 10px 20px;
+  /* Adds space inside the button for a comfortable clickable area. */
+  background-color: #3D4A3D;
+  /* Uses dark green as the button's background color. */
+  color: #fff;
+  /* Sets the button text color to white for visibility. */
+  font-size: 0.7em;
+  /* Increases the font size slightly for emphasis. */
+  border: none;
+  /* Removes the default button border for a clean look. */
+  border-radius: 3px;
+  /* Slightly rounds the button's corners for a smoother design. */
+  cursor: pointer;
+  /* Displays a hand icon when hovering over the button. */
+}
+
+#recipe-popup button:hover {
+  background-color: #767e76;
+  /* Changes the button background color to a lighter green when hovered. */
+  cursor: pointer;
+  /* Ensures the button remains interactive when hovered. */
+  transform: scale(1.05);
+  /* Slightly enlarges the button for a tactile, interactive effect. */
+}
+
+/* Styling for the ingredient list with checkboxes */
+#recipe-popup ul {
+  list-style-type: none;
+  /* Removes bullet points or numbering from the list. */
+  padding: 0;
+  /* Removes any extra space inside the list. */
+  margin: 0;
+  /* Eliminates any space around the list. */
+}
+
+#recipe-popup ul li {
+  margin-bottom: 10px;
+  /* Adds spacing between individual items in the list for readability. */
+  display: flex;
+  /* Aligns the checkbox and text horizontally. */
+  align-items: center;
+  /* Vertically aligns the checkbox and text. */
+}
+
+#recipe-popup ul li input[type="checkbox"] {
+  margin-right: 10px;
+  /* Creates space between the checkbox and the text label. */
+  transform: scale(1.2);
+  /* Enlarges the checkbox slightly for better visibility. */
+}
+
+#shopping-list-section {
+  background-color: #fff;
+  /* Sets a white background to make the section clean and easy to read. */
+  padding: 20px;
+  /* Adds 20 pixels of spacing inside the section for a comfortable layout. */
+  border-radius: 5px;
+  /* Rounds the corners of the section for a smoother look. */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  /* Adds a shadow around the section for a subtle 3D effect. */
+  max-width: 500px;
+  /* Sets a maximum width of 500 pixels to ensure it doesn't get too wide. */
+  width: 90%;
+  /* Makes the section responsive to screen sizes, using 90% of the width. */
+  margin: 0 auto;
+  /* Centers the section on the page. */
+  font-family: 'Montserrat Alternates', sans-serif;
+  /* Matches the font style used in the rest of the design for consistency. */
+}
+
+#shopping-list-section h2 {
+  display: flex;
+  /* Uses flexbox for alignment. */
+  align-items: center;
+  /* Ensures the text aligns properly with the shopping cart icon. */
+  font-size: 1.5em;
+  /* Makes the heading slightly larger for emphasis. */
+  font-weight: bold;
+  /* Adds extra thickness to the text to make it stand out. */
+  margin-bottom: 20px;
+  /* Creates space below the heading for a clear layout. */
+}
+
+#shopping-list-section h2:before {
+  content: "\1F6D2";
+  /* Adds a shopping cart emoji/icon before the heading text. */
+  font-size: 1.0em;
+  /* Sets the size of the shopping cart icon. */
+  margin-right: 5px;
+  /* Adds space between the shopping cart icon and the text. */
+}
+
+#shopping-list-section ul {
+  display: flex;
+  /* Uses flexbox to arrange the list items. */
+  flex-wrap: wrap;
+  /* Allows list items to move to the next row if there's no space. */
+  justify-content: space-between;
+  /* Distributes list items evenly across the row. */
+  list-style-type: disc;
+  /* Adds bullet points to the list items for clarity. */
+  padding-left: 10px;
+  /* Creates space for the bullet points to align properly. */
+  margin: 0;
+  /* Removes extra space around the list. */
+}
+
+#shopping-list-section ul li {
+  margin-bottom: 10px;
+  /* Adds space between each list item for better readability. */
+  display: flex;
+  /* Aligns delete buttons horizontally with the text. */
+  align-items: center;
+  /* Centers the delete button and text vertically. */
+  width: calc(50% - 10px);
+  /* Ensures two items fit per row with spacing. */
+  font-size: 0.8em;
+  /* Makes the text a bit smaller for a neat look. */
+}
+
+#shopping-list-section ul li button.delete-btn {
+  margin-left: auto;
+  /* Pushes the delete button to the far right of the list item. */
+  font-size: 0.9em;
+  /* Makes the delete icon slightly larger for visibility. */
+  color: red;
+  /* Colors the delete button red to indicate its purpose. */
+  background: none;
+  /* Removes the background from the button. */
+  border: none;
+  /* Removes the border for a cleaner design. */
+  cursor: pointer;
+  /* Changes the cursor to a hand icon when hovering over the button. */
+  padding: 0 !important;
+  /* Removes extra padding for a compact look. */
+  color: inherit;
+  /* Keeps the button's text color matching the rest of the design. */
+  margin-right: 70px;
+  /* Adds space between the delete button and the text. */
+}
+
+#shopping-list-section ul li button.delete-btn:hover {
+  transform: scale(1.5);
+  /* Makes the delete button bigger when hovered over for emphasis. */
+}
+
+#go-back-button-added {
+  background-color: #3D4A3D;
+  /* Sets the base color of the button to dark green for consistency. */
+  color: white;
+  /* Makes the button text white for visibility. */
+  border: none;
+  /* Removes the default border for a cleaner look. */
+  border-radius: 3px;
+  /* Adds rounded corners for a smoother appearance. */
+  padding: 10px 15px;
+  /* Adds spacing inside the button to make it comfortable to click. */
+  font-size: 0.7em;
+  /* Sets the font size for readability. */
+  cursor: pointer;
+  /* Changes the cursor to a hand icon when hovering. */
+  transition: background-color 0.3s ease;
+  /* Adds a smooth transition effect when the button color changes. */
+}
+
+#go-back-button-added:hover {
+  background-color: #767E7E;
+  /* Changes the button color to a lighter green when hovered to show interactivity. */
+}
+
+.container input {
+  position: absolute;
+  /* Places the input element exactly where needed within the container. */
+  opacity: 0;
+  /* Makes the input (e.g., checkbox) invisible. */
+  cursor: pointer;
+  /* Changes the cursor to a hand icon when hovered over. */
+  height: 0;
+  /* Sets the height of the input to zero since it's invisible. */
+  width: 0;
+  /* Sets the width of the input to zero since it's invisible. */
+}
+
+.container {
+  position: absolute;
+  /* Allows precise positioning inside the recipe card. */
+  bottom: 10px;
+  /* Places the button 10 pixels from the bottom of the card. */
+  left: 10px;
+  /* Positions the button 10 pixels from the left side of the card. */
+
+  display: block;
+  /* Makes the container a block-level element. */
+  /* position: relative; */
+  /* Allows positioning of the container and its contents. */
+  cursor: pointer;
+  /* Makes the container clickable. */
+  font-size: 15px;
+  /* Sets the font size inside the container. */
+  user-select: none;
+  /* Prevents the text inside the container from being selected. */
+  transition: 100ms;
+  /* Adds a smooth transition effect for styling changes. */
+}
+
+.checkmark {
+  top: 0;
+  /* Positions the checkmark at the top of its container. */
+  left: 0;
+  /* Positions the checkmark at the left of its container. */
+  height: 2em;
+  /* Sets the height of the checkmark to two times the font size (2em). */
+  width: 2em;
+  /* Sets the width of the checkmark to two times the font size (2em). */
+  transition: 100ms;
+  /* Adds a smooth transition effect when the checkmark changes. */
+  animation: dislike_effect 400ms ease;
+  /* Animates the checkmark with a dislike effect. */
+}
+
+.container .checkmark path {
+  stroke: black;
+  /* Sets a black border for the checkmark. */
+  stroke-width: 10px;
+  /* Sets the thickness of the border to 10 pixels. */
+  fill: none;
+  /* Ensures the checkmark shape is not filled. */
+}
+
+.container input:checked ~ .checkmark path {
+  fill: #FF5353;
+  /* Fills the checkmark with red when the input is checked. */
+  stroke-width: 2px;
+  /* Makes the border thinner when checked. */
+}
+
+.container input:checked ~ .checkmark path {
+  fill: #FF5353;
+  /* Ensures the heart/checkmark is red when selected. */
+  stroke-width: 0;
+  /* Removes the border thickness completely. */
+}
+
+
+.container input:checked ~ .checkmark {
+  animation: like_effect 400ms ease;
+  /* Animates the checkmark with a like effect when selected. */
+}
+
+
+.container:hover {
+  transform: scale(1.05);
+  /* Slightly enlarges the container when hovered for emphasis. */
+}
+
+@keyframes like_effect {
+  0% {
+    transform: scale(0);
+    /* Starts the like animation with the checkmark at zero size. */
+  }
+  50% {
+    transform: scale(1.2);
+    /* Temporarily enlarges the checkmark to emphasize the action. */
+  }
+  100% {
+    transform: scale(1);
+    /* Returns the checkmark to its normal size. */
+  }
+}
+
+@keyframes dislike_effect {
+  0% {
+    transform: scale(0);
+    /* Starts the dislike animation with the checkmark at zero size. */
+  }
+  50% {
+    transform: scale(1.2);
+    /* Temporarily enlarges the checkmark to emphasize the action. */
+  }
+  100% {
+    transform: scale(1);
+    /* Returns the checkmark to its normal size. */
+  }
+}
+
+
+.toast {
+  visibility: hidden; /* Hidden by default */
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #4CAF50; /* Green background for success */
+  color: white;
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  font-size: 16px;
+  z-index: 10000;
+  opacity: 0; /* Start fully transparent */
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+.toast.show {
+  visibility: visible; /* Make visible */
+  opacity: 1; /* Fade in */
+}
+

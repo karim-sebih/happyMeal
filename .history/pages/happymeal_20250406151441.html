@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../style/style.css">
+  <link rel="shortcut icon" href="./assets/logo.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Agdasima:wght@400;700&family=Dancing+Script:wght@400..700&family=Krona+One&family=Montserrat+Alternates:wght@100..900&display=swap"
+        rel="stylesheet"> 
+  <title>HappyMeal</title>
+</head>
+<body>
+  <aside class="sidebar"> 
+  <header class="sidebar-header">
+      <a href="#" class="header-logo">
+          <img src="./assets/HappyMeal_logo-removebg-preview.png" alt="logo bg transparent">
+      </a>
+      <a href="">
+          <h1>Happy Meal</h1>
+      </a>
+      <button class="toggler sidebar-toggler">
+          <span class="material-symbols-rounded">
+              chevron_left
+          </span>
+      </button>
+      <button class="toggler menu-toggler">
+          <span class="material-symbols-rounded">
+              menu
+          </span>
+      </button>
+  </header>
+  <nav class="sidebar-nav">
+
+      <ul class="nav-list primary-nav">
+         
+          <li class="nav-item">
+              <a href="/pages/explorer.html" class="nav-link">
+                  <span class="nav-icon material-symbols-rounded">explore</span>
+                  <span class="nav-label">Explorer</span>
+              </a>
+              <span class="nav-tooltip">Explorer</span>
+          </li>
+          <li class="nav-item">
+              <a href="/pages/happymeal.html" class="nav-link">
+                  <span class="nav-icon material-symbols-rounded">favorite</span>
+                  <span class="nav-label">Favoris</span>
+              </a>
+              <span class="nav-tooltip">Favoris</span>
+          </li>
+          <li class="nav-item">
+              <a href="/pages/happymeal.html" class="nav-link">
+                  <span class="nav-icon material-symbols-rounded">shopping_cart</span>
+                  <span class="nav-label">Liste des courses</span>
+              </a>
+              <span class="nav-tooltip">Liste des courses</span>
+          </li>
+          <li class="nav-item">
+              <a href="/pages/calendrier.html" class="nav-link">
+                  <span class="nav-icon material-symbols-rounded">calendar_month</span>
+                  <span class="nav-label">Menu de la semaine</span>
+              </a>
+              <span class="nav-tooltip">Menu de la semaine</span>
+          </li>
+          </a>
+
+      </ul>
+
+      <ul class="nav-list secondary-nav">
+          <li class="nav-item">
+              <a href="" class="nav-link">
+                  <span class="nav-icon material-symbols-rounded">account_circle</span>
+                  <span class="nav-label">Login</span>
+              </a>
+              <span class="nav-tooltip">Login</span>
+          </li>
+          <li class="nav-item">
+              <a href="" class="nav-link">
+                  <span class="nav-icon material-symbols-rounded">logout</span>
+                  <span class="nav-label">Logout</span>
+              </a>
+              <span class="nav-tooltip">Logout</span>
+          </li>
+      </ul>
+  </nav>
+</aside>
+<div class="content">
+  <h1>Recettes</h1>
+  <!-- Filter container for category buttons -->
+  <div id="filter-container" style="margin-bottom: 20px;"></div>
+  <button id="go-back-button" style="display: none;" onclick="goBack()">Revenir</button>
+
+  <!-- Recipe container for dynamically rendered recipes -->
+  <div id="recipe-container"></div>
+
+  <!-- Liked recipes container (updated to div for card format) -->
+  <h2>Favoris:</h2>
+  <!-- <div id="liked-recipes"></div> -->
+  <div id="liked-recipes" style="display: none;"></div>
+
+  
+<!-- Shopping List Section -->
+<section id="shopping-list-section" style="display: none;">
+  <h2>List de courses</h2>
+  <ul id="shopping-list"></ul>
+</section>
+
+
+<div id="toast" class="toast"></div>
+</div>
+
+
+  <!-- Include the script file -->
+  <script src="../js/script.js"></script>
+  <script src="../js/sidebar.js"></script>
+  <script src="../"></script>
+</body>
+</html>
