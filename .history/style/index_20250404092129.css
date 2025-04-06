@@ -519,8 +519,7 @@ button {
   position: relative;
   overflow-y: auto;
   max-height: 100vh;
-  animation: fadeIn 0.3s  ease-in-out;
-  transition: translate (-50%, -50%);
+  a
 }
 
   
