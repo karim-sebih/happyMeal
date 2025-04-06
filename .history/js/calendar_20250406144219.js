@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     const monthViewButton = document.getElementById('month-view-button');
 
     try {
-        const res = await fetch('http://localhost/happyMeal/json/data.json');
+        const res = await fetch('http://localhost/happyMeal/assets/data.json');
         if (!res.ok) {
             throw new Error('Erreur lors de la récupération des données JSON.');
         }
