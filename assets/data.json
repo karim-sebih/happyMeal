@@ -1,6 +1,6 @@
 
-{
-    "recettes":[
+[
+    
        {
           "nom":"Poulet rôti aux herbes",
           "image": {
@@ -597,5 +597,4 @@
              "Couvrez le plat et laissez reposer au réfrigérateur pendant au moins 4 heures, idéalement toute une nuit, avant de servir."
           ]
        }
-    ]
- }
+ ]
