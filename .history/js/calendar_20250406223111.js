@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', async function() {
     let savedEvents = JSON.parse(localStorage.getItem('calendarEvents')) || [];
-    let jsonData = []; // Variable pour stocker les données JSON
 
     const calendarContainer = document.getElementById('calCont');
     const mealForm = document.getElementById('meal-form');
@@ -8,7 +7,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     const addMealButton = document.getElementById('add-meal');
     const mealNameInput = document.getElementById('meal-name');
     const mealDateInput = document.getElementById('meal-date');
-    const cancelMealButton = document.getElementById('cancel-meal');
+    const cancelMealButton = document.getElementById('cancel-meal'); // Nouveau bouton Annuler
     const weekViewButton = document.getElementById('week-view-button');
     const monthViewButton = document.getElementById('month-view-button');
 
@@ -37,12 +36,8 @@ document.addEventListener('DOMContentLoaded', async function() {
         },
         events: savedEvents,
         eventContent: function(arg) {
-            // Chercher la recette correspondante dans les données JSON
-            let recipe = jsonData.find(r => r.nom === arg.event.title);
-            let imageHtml = recipe ? `<img src="${recipe.image.src}" alt="${recipe.image.alt}" style="width: 50px; height: 50px;">` : '';
             let eventHtml = `
                 <div class="vignette">
-                    ${imageHtml}
                     <div>${arg.event.title}</div>
                     <button class="modify-button" data-event-id="${arg.event.id}">Modifier</button>
                     <button class="delete-button" data-event-id="${arg.event.id}">Supprimer</button>
@@ -100,26 +95,19 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     // Charger les données JSON séparément
     try {
-        const res = await fetch('../json/data.json');
+        const res = await fetch('http://localhost/happyMeal/json/data.json');
         if (!res.ok) {
             throw new Error('Erreur lors de la récupération des données JSON.');
         }
         const data = await res.json();
 
-        // Vérifier si les données sont un tableau, sinon les convertir ou utiliser une valeur par défaut
         if (!Array.isArray(data)) {
-            console.warn('Les données JSON ne sont pas un tableau. Conversion en tableau...');
-            jsonData = [data]; // Convertir un objet unique en tableau
-        } else {
-            jsonData = data; // Les données sont déjà un tableau
+            throw new Error('Les données récupérées ne sont pas un tableau.');
         }
 
-        console.log('Données JSON chargées :', jsonData);
-
-        // Rafraîchir le calendrier pour afficher les images si des événements existent déjà
-        calendrier.refetchEvents();
+        console.log(data);
     } catch (error) {
-        console.warn('Impossible de charger les données JSON. Le calendrier fonctionnera sans les images des repas.', error);
+        console.error('Erreur lors du chargement des données:', error);
     }
 });
 

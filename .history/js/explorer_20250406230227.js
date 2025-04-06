@@ -133,6 +133,7 @@ document.addEventListener("click", function (event) {
 });
 
 // Le calendrier
+// Le calendrier
 document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById("presence-form");
     const dateInput = document.getElementById("date");

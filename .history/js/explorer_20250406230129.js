@@ -136,7 +136,6 @@ document.addEventListener("click", function (event) {
 document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById("presence-form");
     const dateInput = document.getElementById("date");
-    const timeInput = document.getElementById("time");
     const messageDiv = document.getElementById("message");
     const requestsList = document.getElementById("requests-list");
 
@@ -144,10 +143,8 @@ document.addEventListener("DOMContentLoaded", function () {
         requestsList.innerHTML = "";
         const savedEvents = JSON.parse(localStorage.getItem("calendarEvents")) || [];
         savedEvents.forEach(event => {
-            const date = event.start.split('T')[0];
-            const time = event.start.split('T')[1]?.slice(0, 5) || "N/A"; // Extrait l'heure (HH:MM)
             const div = document.createElement("div");
-            div.innerHTML = `<strong>${date} à ${time}</strong>: ${event.title}`;
+            div.innerHTML = `<strong>${event.start.split('T')[0]}</strong>: ${event.title}`;
             requestsList.appendChild(div);
         });
     }
@@ -155,25 +152,23 @@ document.addEventListener("DOMContentLoaded", function () {
     form.addEventListener("submit", function (e) {
         e.preventDefault();
         const selectedDate = dateInput.value;
-        const selectedTime = timeInput.value;
         const mealName = document.getElementById("modal-title").textContent;
 
-        if (!selectedDate || !selectedTime) {
-            messageDiv.textContent = "Veuillez choisir une date et une heure.";
+        if (!selectedDate) {
+            messageDiv.textContent = "Veuillez choisir une date.";
             return;
         }
 
         let savedEvents = JSON.parse(localStorage.getItem("calendarEvents")) || [];
-        const dateTime = `${selectedDate}T${selectedTime}:00`;
-        const eventExists = savedEvents.some(event => event.start === dateTime && event.title === mealName);
+        const eventExists = savedEvents.some(event => event.start.startsWith(selectedDate) && event.title === mealName);
         if (eventExists) {
-            messageDiv.textContent = "Ce plat a déjà été ajouté à cette date et heure.";
+            messageDiv.textContent = "Ce plat a déjà été ajouté à cette date.";
             return;
         }
 
         const newEvent = {
             title: mealName,
-            start: dateTime,
+            start: `${selectedDate}T12:00:00`, // Heure par défaut (midi), ajustable si besoin
             id: Date.now().toString()
         };
         savedEvents.push(newEvent);

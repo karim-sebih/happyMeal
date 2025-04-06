@@ -1,27 +1,41 @@
+// Définir recipes comme une variable globale
 let recipes = [];
 
 document.addEventListener("DOMContentLoaded", async function () {
-    const recettesContainer = document.querySelector(".recettes-container");
-    const prevBtn = document.getElementById("prev-btn");
-    const nextBtn = document.getElementById("next-btn");
-    const pageNumberSpan = document.getElementById("page-number");
+    const principalContainer = document.querySelector(".Principal");
+    const entreeContainer = document.querySelector(".entree");
+    const dessertContainer = document.querySelector(".dessert");
 
     try {
-        const response = await fetch("../json/data.json");
+        const response = await fetch("./json/data.json");
         const data = await response.json();
         recipes = data.recettes;
 
-        let currentPage = 1;
-        const recipesPerPage = 5;
-        const totalPages = Math.ceil(recipes.length / recipesPerPage);
+        const categories = { "Plat principal": [], "Entrée": [], "Dessert": [] };
 
-        function displayRecipes(page) {
-            recettesContainer.innerHTML = "";
-            const start = (page - 1) * recipesPerPage;
-            const end = start + recipesPerPage;
-            const recipesToDisplay = recipes.slice(start, end);
+        recipes.forEach(recipe => {
+            if (categories[recipe.categorie]) {
+                categories[recipe.categorie].push(recipe);
+            }
+        });
 
-            recipesToDisplay.forEach(recipe => {
+        function getRandomRecipes(arr, count = 4) {
+            const shuffled = [...arr].sort(() => 0.5 - Math.random());
+            const selected = new Set();
+            const result = [];
+            for (let recipe of shuffled) {
+                if (!selected.has(recipe.nom)) {
+                    selected.add(recipe.nom);
+                    result.push(recipe);
+                }
+                if (result.length === count) break;
+            }
+            return result;
+        }
+
+        function displayRecipes(container, recipes) {
+            container.innerHTML = "";
+            recipes.forEach(recipe => {
                 const recipeCard = document.createElement("div");
                 recipeCard.className = "recipe-card";
                 const imageSrc = recipe.image?.src || recipe.image || "default.jpg";
@@ -32,26 +46,15 @@ document.addEventListener("DOMContentLoaded", async function () {
                     <p><strong>Temps :</strong> ${recipe.temps_preparation}</p>
                     <button class="details-btn" data-recipe="${encodeURIComponent(JSON.stringify(recipe))}">Voir Détails</button>
                 `;
-                recettesContainer.appendChild(recipeCard);
+                container.appendChild(recipeCard);
             });
-            pageNumberSpan.textContent = `Page ${page} / ${totalPages}`;
         }
 
-        prevBtn.addEventListener("click", function () {
-            if (currentPage > 1) {
-                currentPage--;
-                displayRecipes(currentPage);
-            }
-        });
+        displayRecipes(principalContainer, getRandomRecipes(categories["Plat principal"]));
+        displayRecipes(entreeContainer, getRandomRecipes(categories["Entrée"]));
+        displayRecipes(dessertContainer, getRandomRecipes(categories["Dessert"]));
 
-        nextBtn.addEventListener("click", function () {
-            if (currentPage < totalPages) {
-                currentPage++;
-                displayRecipes(currentPage);
-            }
-        });
-
-        displayRecipes(currentPage);
+        console.log(`Nombre total de recettes chargées : ${recipes.length}`);
 
         document.addEventListener("click", function (event) {
             if (event.target.classList.contains("details-btn")) {
@@ -133,10 +136,10 @@ document.addEventListener("click", function (event) {
 });
 
 // Le calendrier
+// Le calendrier
 document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById("presence-form");
     const dateInput = document.getElementById("date");
-    const timeInput = document.getElementById("time");
     const messageDiv = document.getElementById("message");
     const requestsList = document.getElementById("requests-list");
 
@@ -144,10 +147,8 @@ document.addEventListener("DOMContentLoaded", function () {
         requestsList.innerHTML = "";
         const savedEvents = JSON.parse(localStorage.getItem("calendarEvents")) || [];
         savedEvents.forEach(event => {
-            const date = event.start.split('T')[0];
-            const time = event.start.split('T')[1]?.slice(0, 5) || "N/A"; // Extrait l'heure (HH:MM)
             const div = document.createElement("div");
-            div.innerHTML = `<strong>${date} à ${time}</strong>: ${event.title}`;
+            div.innerHTML = `<strong>${event.start.split('T')[0]}</strong>: ${event.title}`;
             requestsList.appendChild(div);
         });
     }
@@ -155,25 +156,23 @@ document.addEventListener("DOMContentLoaded", function () {
     form.addEventListener("submit", function (e) {
         e.preventDefault();
         const selectedDate = dateInput.value;
-        const selectedTime = timeInput.value;
         const mealName = document.getElementById("modal-title").textContent;
 
-        if (!selectedDate || !selectedTime) {
-            messageDiv.textContent = "Veuillez choisir une date et une heure.";
+        if (!selectedDate) {
+            messageDiv.textContent = "Veuillez choisir une date.";
             return;
         }
 
         let savedEvents = JSON.parse(localStorage.getItem("calendarEvents")) || [];
-        const dateTime = `${selectedDate}T${selectedTime}:00`;
-        const eventExists = savedEvents.some(event => event.start === dateTime && event.title === mealName);
+        const eventExists = savedEvents.some(event => event.start.startsWith(selectedDate) && event.title === mealName);
         if (eventExists) {
-            messageDiv.textContent = "Ce plat a déjà été ajouté à cette date et heure.";
+            messageDiv.textContent = "Ce plat a déjà été ajouté à cette date.";
             return;
         }
 
         const newEvent = {
             title: mealName,
-            start: dateTime,
+            start: `${selectedDate}T12:00:00`, // Heure par défaut (midi), ajustable si besoin
             id: Date.now().toString()
         };
         savedEvents.push(newEvent);
@@ -184,7 +183,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     loadRequests();
 });
-// Favoris
+// Favoris (utilise "likedRecipes")
 document.addEventListener("DOMContentLoaded", function () {
     const favoriteBtn = document.getElementById("favorite-btn");
     const modalTitle = document.getElementById("modal-title");
@@ -231,10 +230,10 @@ document.addEventListener("DOMContentLoaded", function () {
     observer.observe(modalTitle, { childList: true });
 });
 
-// Liste des courses
+// Liste des courses (utilise "shoppingList")
 function displayStoredIngredients() {
     const storedIngredients = JSON.parse(localStorage.getItem("shoppingList")) || [];
-    const shoppingListElement = document.getElementById("shopping-list");
+    const shoppingListElement = document.getElementById("shopping-list"); // Cible la nouvelle section
     if (shoppingListElement) {
         shoppingListElement.innerHTML = "";
 
@@ -243,12 +242,13 @@ function displayStoredIngredients() {
                 const li = document.createElement("li");
                 li.textContent = ingredient;
                 const deleteBtn = document.createElement("button");
-                deleteBtn.textContent = "🗑️";
+                deleteBtn.textContent = "🗑️"; // Icône poubelle pour cohérence
                 deleteBtn.classList.add("delete-btn");
                 deleteBtn.addEventListener("click", function () {
                     storedIngredients.splice(index, 1);
                     localStorage.setItem("shoppingList", JSON.stringify(storedIngredients));
                     displayStoredIngredients();
+                    // Décocher la case correspondante dans la modale si ouverte
                     const checkboxes = document.querySelectorAll("#modal-ingredients input[type='checkbox']");
                     checkboxes.forEach(checkbox => {
                         if (checkbox.dataset.name === ingredient) {
@@ -265,14 +265,17 @@ function displayStoredIngredients() {
     }
 }
 
+// Afficher la liste au chargement de la page
 document.addEventListener("DOMContentLoaded", function () {
     displayStoredIngredients();
 });
 
+// Soumettre la liste (simplifié, sans suppression)
 document.getElementById("submit-list-btn").addEventListener("click", function () {
     const storedIngredients = JSON.parse(localStorage.getItem("shoppingList")) || [];
     if (storedIngredients.length > 0) {
         alert("La liste a été soumise !");
+        // Ne vide pas la liste, juste une confirmation
         const checkboxes = document.querySelectorAll("#modal-ingredients input[type='checkbox']");
         checkboxes.forEach(checkbox => {
             checkbox.checked = false;
@@ -286,9 +289,22 @@ document.getElementById("submit-list-btn").addEventListener("click", function ()
 // Barre de recherche
 document.addEventListener("DOMContentLoaded", async function () {
     const searchInput = document.getElementById("search-bar");
+    const searchBtn = document.getElementById("search-btn");
     const suggestionBox = document.getElementById("suggestions");
     const resultsContainer = document.getElementById("search-results");
     const clearButton = document.getElementById("clear-search");
+
+    async function loadRecipes() {
+        try {
+            const response = await fetch("./json/data.json");
+            const data = await response.json();
+            recipes = data.recettes;
+        } catch (error) {
+            console.error("Erreur de chargement des recettes :", error);
+        }
+    }
+
+    await loadRecipes();
 
     function getSuggestions(query) {
         if (!query) return [];
@@ -369,6 +385,15 @@ document.addEventListener("DOMContentLoaded", async function () {
         }
     });
 
+    if (searchBtn) {
+        searchBtn.addEventListener("click", function () {
+            const query = searchInput.value.trim();
+            if (query) {
+                displayResults(query);
+            }
+        });
+    }
+
     clearButton.addEventListener("click", function () {
         searchInput.value = "";
         suggestionBox.innerHTML = "";
@@ -379,6 +404,13 @@ document.addEventListener("DOMContentLoaded", async function () {
     document.addEventListener("click", (event) => {
         if (!searchInput.contains(event.target) && !suggestionBox.contains(event.target)) {
             suggestionBox.innerHTML = "";
+        }
+    });
+
+    document.addEventListener("click", function (event) {
+        if (event.target.classList.contains("details-btn")) {
+            const recipe = JSON.parse(decodeURIComponent(event.target.dataset.recipe));
+            openModal(recipe);
         }
     });
 });

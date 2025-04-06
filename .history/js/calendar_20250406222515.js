@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', async function() {
     let savedEvents = JSON.parse(localStorage.getItem('calendarEvents')) || [];
-    let jsonData = []; // Variable pour stocker les données JSON
 
     const calendarContainer = document.getElementById('calCont');
     const mealForm = document.getElementById('meal-form');
@@ -8,7 +7,6 @@ document.addEventListener('DOMContentLoaded', async function() {
     const addMealButton = document.getElementById('add-meal');
     const mealNameInput = document.getElementById('meal-name');
     const mealDateInput = document.getElementById('meal-date');
-    const cancelMealButton = document.getElementById('cancel-meal');
     const weekViewButton = document.getElementById('week-view-button');
     const monthViewButton = document.getElementById('month-view-button');
 
@@ -37,12 +35,8 @@ document.addEventListener('DOMContentLoaded', async function() {
         },
         events: savedEvents,
         eventContent: function(arg) {
-            // Chercher la recette correspondante dans les données JSON
-            let recipe = jsonData.find(r => r.nom === arg.event.title);
-            let imageHtml = recipe ? `<img src="${recipe.image.src}" alt="${recipe.image.alt}" style="width: 50px; height: 50px;">` : '';
             let eventHtml = `
                 <div class="vignette">
-                    ${imageHtml}
                     <div>${arg.event.title}</div>
                     <button class="modify-button" data-event-id="${arg.event.id}">Modifier</button>
                     <button class="delete-button" data-event-id="${arg.event.id}">Supprimer</button>
@@ -61,7 +55,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             domNode.querySelector('.modify-button').onclick = function() {
                 mealNameInput.value = arg.event.title;
                 mealDateInput.value = arg.event.startStr.split('T')[0];
-                document.getElementById('meal-time').value = arg.event.startStr.split('T')[1]?.slice(0, 5) || '';
+                document.getElementById('meal-time').value = arg.event.startStr.split('T')[1].slice(0, 5);
 
                 mealPopup.style.display = 'block';
                 addMealButton.onclick = function() {
@@ -85,11 +79,6 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     calendrier.render();
 
-    // Attacher l'événement pour le bouton Annuler
-    cancelMealButton.addEventListener('click', function() {
-        mealPopup.style.display = 'none';
-    });
-
     weekViewButton.addEventListener('click', function() {
         calendrier.changeView('dayGridWeek');
     });
@@ -100,44 +89,21 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     // Charger les données JSON séparément
     try {
-        const res = await fetch('../json/data.json');
+        const res = await fetch('http://localhost/happyMeal/json/data.json');
         if (!res.ok) {
             throw new Error('Erreur lors de la récupération des données JSON.');
         }
         const data = await res.json();
 
-        // Vérifier si les données sont un tableau, sinon les convertir ou utiliser une valeur par défaut
         if (!Array.isArray(data)) {
-            console.warn('Les données JSON ne sont pas un tableau. Conversion en tableau...');
-            jsonData = [data]; // Convertir un objet unique en tableau
-        } else {
-            jsonData = data; // Les données sont déjà un tableau
+            throw new Error('Les données récupérées ne sont pas un tableau.');
         }
 
-        console.log('Données JSON chargées :', jsonData);
+        console.log(data);
 
-        // Rafraîchir le calendrier pour afficher les images si des événements existent déjà
-        calendrier.refetchEvents();
+        // Ajouter les données JSON au calendrier si nécessaire
+        // Par exemple, tu peux mettre à jour les événements ici
     } catch (error) {
-        console.warn('Impossible de charger les données JSON. Le calendrier fonctionnera sans les images des repas.', error);
+        console.error('Erreur lors du chargement des données:', error);
     }
 });
-
-function maj_savedEvents(title, dateTime, id = null) {
-    let savedEvents = JSON.parse(localStorage.getItem('calendarEvents')) || [];
-    if (id) {
-        let eventIndex = savedEvents.findIndex(event => event.id === id);
-        if (eventIndex !== -1) {
-            savedEvents[eventIndex] = { title, start: dateTime, id };
-        }
-    } else {
-        savedEvents.push({ title, start: dateTime, id: Date.now().toString() });
-    }
-    localStorage.setItem('calendarEvents', JSON.stringify(savedEvents));
-}
-
-function supprimer_savedEvent(eventId) {
-    let savedEvents = JSON.parse(localStorage.getItem('calendarEvents')) || [];
-    savedEvents = savedEvents.filter(event => event.id !== eventId);
-    localStorage.setItem('calendarEvents', JSON.stringify(savedEvents));
-}

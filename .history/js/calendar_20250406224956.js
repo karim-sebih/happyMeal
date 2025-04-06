@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     // Charger les données JSON séparément
     try {
-        const res = await fetch('../json/data.json');
+        const res = await fetch('http://localhost/happyMeal/json/data.json');
         if (!res.ok) {
             throw new Error('Erreur lors de la récupération des données JSON.');
         }

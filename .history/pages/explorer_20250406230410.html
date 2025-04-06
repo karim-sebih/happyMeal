@@ -1,21 +1,19 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./style/index.css">
-    <link rel="shortcut icon" href="./assets/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../style/explorer.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
-    <title>Happy Meal</title>
+    <title>Explorer</title>
 </head>
 <body>
     <aside class="sidebar"> 
-        <!-- Contenu de la barre latérale reste inchangé -->
         <header class="sidebar-header">
-            <a href="#" class="header-logo">
-                <img src="./assets/HappyMeal_logo-removebg-preview.png" alt="logo bg transparent">
+            <a href="../index.html" class="header-logo">
+                <img src="../assets/HappyMeal_logo-removebg-preview.png" alt="logo bg transparent">
             </a>
-            <a href="">
+            <a href="../index.html">
                 <h1>Happy Meal</h1>
             </a>
             <button class="toggler sidebar-toggler">
@@ -28,28 +26,28 @@
         <nav class="sidebar-nav">
             <ul class="nav-list primary-nav">
                 <li class="nav-item">
-                    <a href="/pages/explorer.html" class="nav-link">
+                    <a href="./explorer.html" class="nav-link">
                         <span class="nav-icon material-symbols-rounded">explore</span>
                         <span class="nav-label">Explorer</span>
                     </a>
                     <span class="nav-tooltip">Explorer</span>
                 </li>
                 <li class="nav-item">
-                    <a href="./pages/happymeal.html" class="nav-link">
+                    <a href="./happymeal.html" class="nav-link">
                         <span class="nav-icon material-symbols-rounded">favorite</span>
                         <span class="nav-label">Favoris</span>
                     </a>
                     <span class="nav-tooltip">Favoris</span>
                 </li>
                 <li class="nav-item">
-                    <a href="/pages/happymeal.html" class="nav-link">
+                    <a href="./happymeal.html" class="nav-link">
                         <span class="nav-icon material-symbols-rounded">shopping_cart</span>
                         <span class="nav-label">Liste des courses</span>
                     </a>
                     <span class="nav-tooltip">Liste des courses</span>
                 </li>
                 <li class="nav-item">
-                    <a href="/pages/calendrier.html" class="nav-link">
+                    <a href="./calendrier.html" class="nav-link">
                         <span class="nav-icon material-symbols-rounded">calendar_month</span>
                         <span class="nav-label">Menu de la semaine</span>
                     </a>
@@ -75,7 +73,6 @@
         </nav>
     </aside>
 
-    <!-- Section d'affichage des recettes -->
     <div class="content">
         <div class="search-container">
             <input type="text" id="search-bar" placeholder="Rechercher une recette..." autocomplete="off">
@@ -83,18 +80,17 @@
             <div id="suggestions" class="suggestion-box"></div>
         </div>
         <div id="search-results"></div>
-        <h2>Plats Principaux</h2>
-        <div class="recettes-container Principal"></div>
-        <h2>Entrées</h2>
-        <div class="recettes-container entree"></div>
-        <h2>Desserts</h2>
-        <div class="recettes-container dessert"></div>
+        <h2>Toutes les recettes</h2>
+        <div class="recettes-container"></div>
+        <div class="pagination">
+            <button id="prev-btn">Précédent</button>
+            <span id="page-number">Page 1</span>
+            <button id="next-btn">Suivant</button>
+        </div>
         
-        
-    </div>
+       
 
-    <!-- Fenêtre Pop-up pour afficher les détails d'une recette -->
-    <!-- Fenêtre Pop-up pour afficher les détails d'une recette -->
+      <!-- Fenêtre Pop-up pour afficher les détails d'une recette -->
 <div id="recipeModal" class="modal">
     <div class="modal-content">
         <span class="close-btn">×</span>
@@ -107,7 +103,7 @@
                 <input type="date" id="date" required>
                 <label for="time">Choisir une heure :</label>
                 <input type="time" id="time" required>
-                <button type="submit">Ajouté</button>
+                <button type="submit">Aj</button>
             </form>
             <div id="message"></div>
             <div class="icon">
@@ -125,8 +121,8 @@
     </div>
 </div>
 
-    <script src="./js/sidebar.js"></script>
-    <script src="./js/index.js"></script>
-    <script src="./js/searchbar.js"></script>
+    <script src="../js/explorer.js"></script>
+    <script src="../js/sidebar.js"></script>
+    <script src="../js/searchbar.js"></script>
 </body>
 </html>

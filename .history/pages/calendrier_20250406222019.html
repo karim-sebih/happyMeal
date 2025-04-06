@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="fr">
     <head>
         <meta charset="UTF-8">
@@ -83,9 +84,9 @@
                     <button id="week-view-button">Semaine</button>
                     <button id="month-view-button">Mois</button>
                 </div>
-                <div id="calCont"></div> <!-- Remplacement de <p> par <div> -->
+                <p id="calCont"></p>
             
-                <section id="meal-popup">
+            <section id="meal-popup">
                     <div id="meal-form">
                         <label for="meal-name">Nom du repas:</label>
                         <input type="text" id="meal-name">
@@ -95,16 +96,17 @@
                         <input type="time" id="meal-time">
                         <div>
                             <button id="add-meal">Ajouter</button>
-                            <button id="cancel-meal">Annuler</button> <!-- Suppression de onclick -->
+                            <button onclick="cacherPopup()">Annuler</button>
                         </div>
                     </div>
-                </section>
-            </div>
+            </section>
         </main>
         <footer>&copy; </footer>
         <script src="../js/calendar.js"></script>
         <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js'></script>
         <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/locales/fr.js'></script>
         <script src="../js/sidebar.js"></script>
+        <!-- <script src="../js/index.js"></script>
+        <script src="../js/searchbar.js"></script> -->
     </body>
 </html>

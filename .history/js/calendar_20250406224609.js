@@ -106,20 +106,17 @@ document.addEventListener('DOMContentLoaded', async function() {
         }
         const data = await res.json();
 
-        // Vérifier si les données sont un tableau, sinon les convertir ou utiliser une valeur par défaut
         if (!Array.isArray(data)) {
-            console.warn('Les données JSON ne sont pas un tableau. Conversion en tableau...');
-            jsonData = [data]; // Convertir un objet unique en tableau
-        } else {
-            jsonData = data; // Les données sont déjà un tableau
+            throw new Error('Les données récupérées ne sont pas un tableau.');
         }
 
+        jsonData = data; // Stocker les données JSON dans la variable globale
         console.log('Données JSON chargées :', jsonData);
 
         // Rafraîchir le calendrier pour afficher les images si des événements existent déjà
         calendrier.refetchEvents();
     } catch (error) {
-        console.warn('Impossible de charger les données JSON. Le calendrier fonctionnera sans les images des repas.', error);
+        console.error('Erreur lors du chargement des données:', error);
     }
 });
 
