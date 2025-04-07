@@ -2,9 +2,7 @@
 let recipes = [];
 
 document.addEventListener("DOMContentLoaded", async function () {
-    const principalContainer = document.querySelector(".Principal");
-    const entreeContainer = document.querySelector(".entree");
-    const dessertContainer = document.querySelector(".dessert");
+    
 
     try {
         const response = await fetch("./json/data.json");
@@ -419,5 +417,3 @@ document.addEventListener("DOMContentLoaded", async function () {
         }
     });
 });
-
-

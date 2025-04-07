@@ -142,7 +142,6 @@ function supprimer_savedEvent(eventId) {
     localStorage.setItem('calendarEvents', JSON.stringify(savedEvents));
 }
 
-
 document.addEventListener('DOMContentLoaded', () => {
     const storedLikedRecipes = localStorage.getItem('likedRecipes');
     if (storedLikedRecipes) {

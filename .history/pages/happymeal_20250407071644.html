@@ -37,14 +37,14 @@
                 <span class="nav-tooltip">Explorer</span>
             </li>
             <li class="nav-item">
-                <a href="./happymeal.html?view=favorites" class="nav-link">
+                <a href="#" class="nav-link">
                     <span class="nav-icon material-symbols-rounded">favorite</span>
                     <span class="nav-label">Favoris</span>
                 </a>
                 <span class="nav-tooltip">Favoris</span>
             </li>
             <li class="nav-item">
-                <a href="./happymeal.html?view=shopping-list" class="nav-link">
+                <a href="#" class="nav-link">
                     <span class="nav-icon material-symbols-rounded">shopping_cart</span>
                     <span class="nav-label">Liste des courses</span>
                 </a>
@@ -78,22 +78,13 @@
   </aside>
   <div class="content">
     <h1>HappyMeal</h1>
-    <!-- Filter container for category buttons -->
-    <div id="filter-container" style="margin-bottom: 20px;"></div>
 
     <!-- Liked recipes container -->
-    <div id="liked-recipes" style="display: none;"></div>
+    <h2>Favoris</h2>
+    <div id="liked-recipes"></div>
 
     <!-- Shopping List Section -->
-    <div id="shopping-list-section" style="display: none;">
+    <h2>Liste de courses</h2>
+    <div id="shopping-list-section">
       <ul id="shopping-list"></ul>
-    </div>
-
-    <!-- Recipe container (gardé pour compatibilité future, mais caché) -->
-    <div id="recipe-container" style="display: none;"></div>
-  </div>
-
-  <script src="../js/script.js"></script>
-  <script src="../js/sidebar.js"></script>
-</body>
-</html>
+      <button id="submit-list-btn">Soumettre la liste</button>

@@ -1,41 +1,27 @@
-// Définir recipes comme une variable globale
 let recipes = [];
 
 document.addEventListener("DOMContentLoaded", async function () {
-    const principalContainer = document.querySelector(".Principal");
-    const entreeContainer = document.querySelector(".entree");
-    const dessertContainer = document.querySelector(".dessert");
+    const recettesContainer = document.querySelector(".recettes-container");
+    const prevBtn = document.getElementById("prev-btn");
+    const nextBtn = document.getElementById("next-btn");
+    const pageNumberSpan = document.getElementById("page-number");
 
     try {
-        const response = await fetch("./json/data.json");
+        const response = await fetch("../json/data.json");
         const data = await response.json();
         recipes = data.recettes;
 
-        const categories = { "Plat principal": [], "Entrée": [], "Dessert": [] };
+        let currentPage = 1;
+        const recipesPerPage = 5;
+        const totalPages = Math.ceil(recipes.length / recipesPerPage);
 
-        recipes.forEach(recipe => {
-            if (categories[recipe.categorie]) {
-                categories[recipe.categorie].push(recipe);
-            }
-        });
+        function displayRecipes(page) {
+            recettesContainer.innerHTML = "";
+            const start = (page - 1) * recipesPerPage;
+            const end = start + recipesPerPage;
+            const recipesToDisplay = recipes.slice(start, end);
 
-        function getRandomRecipes(arr, count = 4) {
-            const shuffled = [...arr].sort(() => 0.5 - Math.random());
-            const selected = new Set();
-            const result = [];
-            for (let recipe of shuffled) {
-                if (!selected.has(recipe.nom)) {
-                    selected.add(recipe.nom);
-                    result.push(recipe);
-                }
-                if (result.length === count) break;
-            }
-            return result;
-        }
-
-        function displayRecipes(container, recipes) {
-            container.innerHTML = "";
-            recipes.forEach(recipe => {
+            recipesToDisplay.forEach(recipe => {
                 const recipeCard = document.createElement("div");
                 recipeCard.className = "recipe-card";
                 const imageSrc = recipe.image?.src || recipe.image || "default.jpg";
@@ -46,15 +32,26 @@ document.addEventListener("DOMContentLoaded", async function () {
                     <p><strong>Temps :</strong> ${recipe.temps_preparation}</p>
                     <button class="details-btn" data-recipe="${encodeURIComponent(JSON.stringify(recipe))}">Voir Détails</button>
                 `;
-                container.appendChild(recipeCard);
+                recettesContainer.appendChild(recipeCard);
             });
+            pageNumberSpan.textContent = `Page ${page} / ${totalPages}`;
         }
 
-        displayRecipes(principalContainer, getRandomRecipes(categories["Plat principal"]));
-        displayRecipes(entreeContainer, getRandomRecipes(categories["Entrée"]));
-        displayRecipes(dessertContainer, getRandomRecipes(categories["Dessert"]));
+        prevBtn.addEventListener("click", function () {
+            if (currentPage > 1) {
+                currentPage--;
+                displayRecipes(currentPage);
+            }
+        });
 
-        console.log(`Nombre total de recettes chargées : ${recipes.length}`);
+        nextBtn.addEventListener("click", function () {
+            if (currentPage < totalPages) {
+                currentPage++;
+                displayRecipes(currentPage);
+            }
+        });
+
+        displayRecipes(currentPage);
 
         document.addEventListener("click", function (event) {
             if (event.target.classList.contains("details-btn")) {
@@ -136,7 +133,6 @@ document.addEventListener("click", function (event) {
 });
 
 // Le calendrier
-
 document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById("presence-form");
     const dateInput = document.getElementById("date");
@@ -188,7 +184,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     loadRequests();
 });
-// Favoris (utilise "likedRecipes")
+// Favoris
 document.addEventListener("DOMContentLoaded", function () {
     const favoriteBtn = document.getElementById("favorite-btn");
     const modalTitle = document.getElementById("modal-title");
@@ -235,10 +231,10 @@ document.addEventListener("DOMContentLoaded", function () {
     observer.observe(modalTitle, { childList: true });
 });
 
-// Liste des courses (utilise "shoppingList")
+// Liste des courses
 function displayStoredIngredients() {
     const storedIngredients = JSON.parse(localStorage.getItem("shoppingList")) || [];
-    const shoppingListElement = document.getElementById("shopping-list"); // Cible la nouvelle section
+    const shoppingListElement = document.getElementById("shopping-list");
     if (shoppingListElement) {
         shoppingListElement.innerHTML = "";
 
@@ -247,13 +243,12 @@ function displayStoredIngredients() {
                 const li = document.createElement("li");
                 li.textContent = ingredient;
                 const deleteBtn = document.createElement("button");
-                deleteBtn.textContent = "🗑️"; // Icône poubelle pour cohérence
+                deleteBtn.textContent = "🗑️";
                 deleteBtn.classList.add("delete-btn");
                 deleteBtn.addEventListener("click", function () {
                     storedIngredients.splice(index, 1);
                     localStorage.setItem("shoppingList", JSON.stringify(storedIngredients));
                     displayStoredIngredients();
-                    // Décocher la case correspondante dans la modale si ouverte
                     const checkboxes = document.querySelectorAll("#modal-ingredients input[type='checkbox']");
                     checkboxes.forEach(checkbox => {
                         if (checkbox.dataset.name === ingredient) {
@@ -270,17 +265,14 @@ function displayStoredIngredients() {
     }
 }
 
-// Afficher la liste au chargement de la page
 document.addEventListener("DOMContentLoaded", function () {
     displayStoredIngredients();
 });
 
-// Soumettre la liste (simplifié, sans suppression)
 document.getElementById("submit-list-btn").addEventListener("click", function () {
     const storedIngredients = JSON.parse(localStorage.getItem("shoppingList")) || [];
     if (storedIngredients.length > 0) {
         alert("La liste a été soumise !");
-        // Ne vide pas la liste, juste une confirmation
         const checkboxes = document.querySelectorAll("#modal-ingredients input[type='checkbox']");
         checkboxes.forEach(checkbox => {
             checkbox.checked = false;
@@ -294,22 +286,9 @@ document.getElementById("submit-list-btn").addEventListener("click", function ()
 // Barre de recherche
 document.addEventListener("DOMContentLoaded", async function () {
     const searchInput = document.getElementById("search-bar");
-    const searchBtn = document.getElementById("search-btn");
     const suggestionBox = document.getElementById("suggestions");
     const resultsContainer = document.getElementById("search-results");
     const clearButton = document.getElementById("clear-search");
-
-    async function loadRecipes() {
-        try {
-            const response = await fetch("./json/data.json");
-            const data = await response.json();
-            recipes = data.recettes;
-        } catch (error) {
-            console.error("Erreur de chargement des recettes :", error);
-        }
-    }
-
-    await loadRecipes();
 
     function getSuggestions(query) {
         if (!query) return [];
@@ -390,15 +369,6 @@ document.addEventListener("DOMContentLoaded", async function () {
         }
     });
 
-    if (searchBtn) {
-        searchBtn.addEventListener("click", function () {
-            const query = searchInput.value.trim();
-            if (query) {
-                displayResults(query);
-            }
-        });
-    }
-
     clearButton.addEventListener("click", function () {
         searchInput.value = "";
         suggestionBox.innerHTML = "";
@@ -411,13 +381,5 @@ document.addEventListener("DOMContentLoaded", async function () {
             suggestionBox.innerHTML = "";
         }
     });
-
-    document.addEventListener("click", function (event) {
-        if (event.target.classList.contains("details-btn")) {
-            const recipe = JSON.parse(decodeURIComponent(event.target.dataset.recipe));
-            openModal(recipe);
-        }
-    });
 });
-
 

@@ -143,24 +143,67 @@ function supprimer_savedEvent(eventId) {
 }
 
 
-document.addEventListener('DOMContentLoaded', () => {
-    const storedLikedRecipes = localStorage.getItem('likedRecipes');
-    if (storedLikedRecipes) {
-      likedRecipes = JSON.parse(storedLikedRecipes);
-      updateLikedRecipes();
-    }
-  
-    const storedShoppingList = localStorage.getItem('shoppingList');
-    if (storedShoppingList) {
-      shoppingList = JSON.parse(storedShoppingList);
-    }
-  
-    // Lire le paramètre d'URL pour déterminer la vue initiale
-    const urlParams = new URLSearchParams(window.location.search);
-    const view = urlParams.get('view');
-    if (view === 'shopping-list') {
-      showShoppingListPage();
-    } else {
-      renderLikedRecipes(); // Par défaut, afficher Favoris
-    }
-  });
+ <aside class="sidebar"> 
+        <header class="sidebar-header">
+            <a href="../index.html" class="header-logo">
+                <img src="../assets/HappyMeal_logo-removebg-preview.png" alt="logo bg transparent">
+            </a>
+            <a href="../index.html">
+                <h1>Happy Meal</h1>
+            </a>
+            <button class="toggler sidebar-toggler">
+                <span class="material-symbols-rounded">chevron_left</span>
+            </button>
+            <button class="toggler menu-toggler">
+                <span class="material-symbols-rounded">menu</span>
+            </button>
+        </header>
+        <nav class="sidebar-nav">
+            <ul class="nav-list primary-nav">
+                <li class="nav-item">
+                    <a href="./explorer.html" class="nav-link">
+                        <span class="nav-icon material-symbols-rounded">explore</span>
+                        <span class="nav-label">Explorer</span>
+                    </a>
+                    <span class="nav-tooltip">Explorer</span>
+                </li>
+                <li class="nav-item">
+                    <a href="./happymeal.html" class="nav-link">
+                        <span class="nav-icon material-symbols-rounded">favorite</span>
+                        <span class="nav-label">Favoris</span>
+                    </a>
+                    <span class="nav-tooltip">Favoris</span>
+                </li>
+                <li class="nav-item">
+                    <a href="./happymeal.html" class="nav-link">
+                        <span class="nav-icon material-symbols-rounded">shopping_cart</span>
+                        <span class="nav-label">Liste des courses</span>
+                    </a>
+                    <span class="nav-tooltip">Liste des courses</span>
+                </li>
+                <li class="nav-item">
+                    <a href="./calendrier.html" class="nav-link">
+                        <span class="nav-icon material-symbols-rounded">calendar_month</span>
+                        <span class="nav-label">Menu de la semaine</span>
+                    </a>
+                    <span class="nav-tooltip">Menu de la semaine</span>
+                </li>
+            </ul>
+            <ul class="nav-list secondary-nav">
+                <li class="nav-item">
+                    <a href="" class="nav-link">
+                        <span class="nav-icon material-symbols-rounded">account_circle</span>
+                        <span class="nav-label">Login</span>
+                    </a>
+                    <span class="nav-tooltip">Login</span>
+                </li>
+                <li class="nav-item">
+                    <a href="" class="nav-link">
+                        <span class="nav-icon material-symbols-rounded">logout</span>
+                        <span class="nav-label">Logout</span>
+                    </a>
+                    <span class="nav-tooltip">Logout</span>
+                </li>
+            </ul>
+        </nav>
+    </aside>

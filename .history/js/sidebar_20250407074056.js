@@ -1,14 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../style/explorer.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
-    <title>Explorer</title>
-</head>
-<body>
-    <aside class="sidebar"> 
+const sidebar = document.querySelector(".sidebar");
+const sidebarToggler = document.querySelector(".sidebar .toggler");
+const menuToggler = document.querySelector(".menu-toggler");
+
+
+
+const collapsedSidebarHeight = "56px";
+const fullSideHeight = "calc(100vh -32px)";
+
+
+sidebarToggler.addEventListener("click", () => {
+    sidebar.classList.toggle("collapsed");
+})
+
+
+const toggleMenu = (isMenuActive) => {
+    sidebar.style.height = isMenuActive ? `${sidebar.scrollHeight}px` : collapsedSidebarHeight;
+    menuToggler.querySelector("span").innerText = isMenuActive ? "close" : "menu";
+}
+
+menuToggler.addEventListener("click", () => {
+    toggleMenu(sidebar.classList.toggle("menu-active"))
+});
+
+window.addEventListener("resize", () => {
+    if (window.innerWidth >= 1024) {
+        sidebar.style.height = fullSideHeight;
+    } else {
+        sidebar.classList.remove("collapsed");
+        sidebar.style.height = "auto";
+        toggleMenu(sidebar.classList.contains("menu-active"));
+    }
+});
+
+
+  <aside class="sidebar"> 
         <header class="sidebar-header">
             <a href="../index.html" class="header-logo">
                 <img src="../assets/HappyMeal_logo-removebg-preview.png" alt="logo bg transparent">
@@ -33,14 +58,14 @@
                     <span class="nav-tooltip">Explorer</span>
                 </li>
                 <li class="nav-item">
-                    <a href="./happymeal.html?view=favorites" class="nav-link">
+                    <a href="./happymeal.html" class="nav-link">
                         <span class="nav-icon material-symbols-rounded">favorite</span>
                         <span class="nav-label">Favoris</span>
                     </a>
                     <span class="nav-tooltip">Favoris</span>
                 </li>
                 <li class="nav-item">
-                    <a href="./happymeal.html?view=shopping-list" class="nav-link">
+                    <a href="./happymeal.html" class="nav-link">
                         <span class="nav-icon material-symbols-rounded">shopping_cart</span>
                         <span class="nav-label">Liste des courses</span>
                     </a>
@@ -71,58 +96,4 @@
                 </li>
             </ul>
         </nav>
-      </aside>
-
-    <div class="content">
-        <div class="search-container">
-            <input type="text" id="search-bar" placeholder="Rechercher une recette..." autocomplete="off">
-            <button id="clear-search">x</button>
-            <div id="suggestions" class="suggestion-box"></div>
-        </div>
-        <div id="search-results"></div>
-        <h2>Toutes les recettes</h2>
-        <div class="recettes-container"></div>
-        <div class="pagination">
-            <button id="prev-btn">Précédent</button>
-            <span id="page-number">Page 1</span>
-            <button id="next-btn">Suivant</button>
-        </div>
-        
-       
-
-      <!-- Fenêtre Pop-up pour afficher les détails d'une recette -->
-<div id="recipeModal" class="modal">
-    <div class="modal-content">
-        <span class="close-btn">×</span>
-        <div class="left-section">
-            <h2 id="modal-title"></h2>
-            <img id="modal-image" src="" alt="">
-            <p><strong>Temps :</strong> <span id="modal-time"></span></p>
-            <form id="presence-form">
-                <label for="date">Choisir une date :</label>
-                <input type="date" id="date" required>
-                <label for="time">Choisir une heure :</label>
-                <input type="time" id="time" required>
-                <button type="submit">Ajouté</button>
-            </form>
-            <div id="message"></div>
-            <div class="icon">
-                <span id="favorite-btn" class="nav-icon material-symbols-rounded">favorite</span>
-            </div>
-        </div>
-        <div class="right-section">
-            <h3>Ingrédients</h3>
-            <ul id="modal-ingredients"></ul>
-            <ul id="stored-ingredients-list"></ul>
-            <button id="submit-list-btn">Soumettre la liste</button>
-            <h3>Étapes</h3>
-            <ol id="modal-steps"></ol>
-        </div>
-    </div>
-</div>
-
-    <script src="../js/explorer.js"></script>
-    <script src="../js/sidebar.js"></script>
-    <script src="../js/searchbar.js"></script>
-</body>
-</html>
+    </aside>

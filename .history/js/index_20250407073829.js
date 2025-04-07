@@ -421,3 +421,24 @@ document.addEventListener("DOMContentLoaded", async function () {
 });
 
 
+document.addEventListener('DOMContentLoaded', () => {
+    const storedLikedRecipes = localStorage.getItem('likedRecipes');
+    if (storedLikedRecipes) {
+      likedRecipes = JSON.parse(storedLikedRecipes);
+      updateLikedRecipes();
+    }
+  
+    const storedShoppingList = localStorage.getItem('shoppingList');
+    if (storedShoppingList) {
+      shoppingList = JSON.parse(storedShoppingList);
+    }
+  
+    // Lire le paramètre d'URL pour déterminer la vue initiale
+    const urlParams = new URLSearchParams(window.location.search);
+    const view = urlParams.get('view');
+    if (view === 'shopping-list') {
+      showShoppingListPage();
+    } else {
+      renderLikedRecipes(); // Par défaut, afficher Favoris
+    }
+  });

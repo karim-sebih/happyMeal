@@ -50,14 +50,8 @@ document.addEventListener('DOMContentLoaded', () => {
     shoppingList = JSON.parse(storedShoppingList);
   }
 
-  // Lire le paramètre d'URL pour déterminer la vue initiale
-  const urlParams = new URLSearchParams(window.location.search);
-  const view = urlParams.get('view');
-  if (view === 'shopping-list') {
-    showShoppingListPage();
-  } else {
-    renderLikedRecipes(); // Par défaut, afficher Favoris
-  }
+  // Afficher les favoris par défaut au chargement
+  renderLikedRecipes();
 });
 
 // ================= DISPLAY LIKED RECIPES =================
@@ -88,7 +82,7 @@ function updateLikedRecipes() {
       <div class="recipe-content">
         <h3>${recipe.nom}</h3>
         <p><strong>Temps de préparation:</strong> ${recipe.temps_preparation}</p>
-        <button class="details-btn" onclick="showPopup(${JSON.stringify(recipe).split('"').join('"')})">Voir Détails</button>
+        <button class="details-btn" onclick="showPopup(${JSON.stringify(recipe).split('"').join('&quot;')})">Voir Détails</button>
         <button class="remove-btn" onclick="removeLikedRecipe('${recipe.nom}')">🗑️</button>
       </div>
     `;
@@ -98,7 +92,9 @@ function updateLikedRecipes() {
 
 // ================= REMOVE LIKED RECIPE =================
 function removeLikedRecipe(recipeName) {
-  likedRecipes = likedRecipes.filter(recipe => recipe.nom !== recipeName);
+  likedRecipes = likedRecipesáshoz
+
+.filter(recipe => recipe.nom !== recipeName);
   localStorage.setItem('likedRecipes', JSON.stringify(likedRecipes));
   updateLikedRecipes();
 }
@@ -214,13 +210,7 @@ function closePopup() {
   const overlay = document.getElementById('popup-overlay');
   if (popup) popup.remove();
   if (overlay) overlay.remove();
-  const urlParams = new URLSearchParams(window.location.search);
-  const view = urlParams.get('view');
-  if (view === 'shopping-list') {
-    showShoppingListPage();
-  } else {
-    renderLikedRecipes(); // Retour à la vue par défaut (Favoris)
-  }
+  renderLikedRecipes(); // Retour à la vue Favoris par défaut
 }
 
 // ================= CHECKBOX AND SHOPPING LIST =================

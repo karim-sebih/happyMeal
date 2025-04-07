@@ -50,9 +50,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             });
         }
 
-        displayRecipes(principalContainer, getRandomRecipes(categories["Plat principal"]));
-        displayRecipes(entreeContainer, getRandomRecipes(categories["Entrée"]));
-        displayRecipes(dessertContainer, getRandomRecipes(categories["Dessert"]));
+      
 
         console.log(`Nombre total de recettes chargées : ${recipes.length}`);
 
@@ -419,5 +417,3 @@ document.addEventListener("DOMContentLoaded", async function () {
         }
     });
 });
-
-
