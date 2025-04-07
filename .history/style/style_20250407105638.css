@@ -78,10 +78,6 @@ h1 {
     transition: 0.4s ease;
 }
 
-.sidebar h1 {
-  display: flex !important;
-}
-
 
 .sidebar-header .sidebar-toggler {
     position: absolute;

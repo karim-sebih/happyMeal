@@ -78,8 +78,9 @@ h1 {
     transition: 0.4s ease;
 }
 
-.sidebar h1 {
-  display: flex !important;
+.sidebar-header {
+    overflow: visible; /* S'assure que le contenu ne soit pas coupé */
+    white-space: nowrap; /* Empêche le texte de passer à la ligne */
 }
 
 

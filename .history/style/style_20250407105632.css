@@ -78,10 +78,6 @@ h1 {
     transition: 0.4s ease;
 }
 
-.sidebar h1 {
-  display: flex !important;
-}
-
 
 .sidebar-header .sidebar-toggler {
     position: absolute;
@@ -447,7 +443,7 @@ button.remove-btn {
   /* Allows precise positioning inside the recipe card. */
   bottom: 10px;
   /* Places the button 10 pixels from the bottom of the card. */
-  left: 80%;
+  left: 100%;
   /* Positions the button 10 pixels from the left side of the card. */
   margin-left: auto;
   /* Pushes the delete button to the far right of the list item. */

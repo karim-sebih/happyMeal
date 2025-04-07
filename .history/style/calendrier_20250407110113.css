@@ -239,8 +239,7 @@ h1 {
     }
 
     .sidebar-header .sidebar-toggler {
-        display: none;
-    }
+       
 
     .sidebar-header .menu-toggler {
         display: flex;

@@ -78,8 +78,12 @@ h1 {
     transition: 0.4s ease;
 }
 
-.sidebar h1 {
-  display: flex !important;
+@media (max-width: 1020px) {
+  .sidebar-header h1 {
+      display: flex; /* Restaure la visibilité */
+      font-size: 1.2em; /* Réduit légèrement si nécessaire */
+      margin: 0 10px; /* Ajuste les marges pour l'adapter */
+  }
 }
 
 

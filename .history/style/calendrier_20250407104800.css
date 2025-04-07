@@ -282,7 +282,7 @@ h1 {
 
 .content {
     margin-top: 10px;
-   
+    background-color: #fff;
 
 }
 
@@ -332,7 +332,7 @@ h1 {
 }
 
 #meal-form {
-    background: #FFF;
+    
     display: flex;
     flex-direction: column;
     position: absolute;
