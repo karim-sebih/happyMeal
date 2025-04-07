@@ -80,7 +80,7 @@ function updateLikedRecipes() {
     return;
   }
 
-  likedRecipes.forEach((recipe, index) => {
+  likedRecipes.forEach(recipe => {
     const card = document.createElement('div');
     card.className = 'recipe-card';
     card.innerHTML = `
@@ -88,20 +88,11 @@ function updateLikedRecipes() {
       <div class="recipe-content">
         <h3>${recipe.nom}</h3>
         <p><strong>Temps de préparation:</strong> ${recipe.temps_preparation}</p>
-        <button class="details-btn" data-recipe-index="${index}">Voir Détails</button>
+        <button class="details-btn" onclick="showPopup(${JSON.stringify(recipe).split('"').join('"')})">Voir Détails</button>
         <button class="remove-btn" onclick="removeLikedRecipe('${recipe.nom}')">🗑️</button>
       </div>
     `;
     likedRecipesList.appendChild(card);
-  });
-
-  // Ajouter les écouteurs d'événements pour les boutons "Voir Détails"
-  document.querySelectorAll('.details-btn').forEach(button => {
-    button.addEventListener('click', function () {
-      const recipeIndex = this.getAttribute('data-recipe-index');
-      const recipe = likedRecipes[recipeIndex];
-      showPopup(recipe);
-    });
   });
 }
 
